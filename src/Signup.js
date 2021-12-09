@@ -61,7 +61,7 @@ export default function Signup() {
 					/>
 				</Form.Group>
 				<Button variant='primary' type='submit'>
-					Submit
+					登録
 				</Button>
 			</Form>
 			<Link to='/login'>login</Link>
