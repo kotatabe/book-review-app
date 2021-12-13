@@ -6,3 +6,11 @@ body {
 form {
   width: 300px;
 }
+
+.book-list-container {
+  li {
+    .detail {
+      font-size: 40%;
+    }
+  }
+}

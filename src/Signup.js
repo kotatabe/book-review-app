@@ -26,7 +26,7 @@ export default function Signup() {
 			.catch(error => {
 				console.log('Error', error);
 			});
-		event.preventDefault();
+		// event.preventDefault();
 	}
 
 	return (
