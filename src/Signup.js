@@ -12,11 +12,12 @@ export default function Signup() {
 	const [ name, setName ] = useState('');
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
-	const url = 'https://api-for-missions-and-railways.herokuapp.com/users';
 	const auth_context = useContext(AuthContext);
+	const url = 'https://api-for-missions-and-railways.herokuapp.com/users';
 
 	const hundleSubmit = (event) => {
 		console.log('hundleSubmit!');
+		event.preventDefault();
 		axios.post( url, { name, email, password } )
 			.then(res => {
 				localStorage.setItem('auth_token', res.data.token);
@@ -24,9 +25,8 @@ export default function Signup() {
 				console.log('api return');
 			})
 			.catch(error => {
-				console.log('Error', error);
+				console.log('...Error', error);
 			});
-		// event.preventDefault();
 	}
 
 	return (

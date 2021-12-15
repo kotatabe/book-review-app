@@ -6,6 +6,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import Header from './Header.js'
 import App from './App';
 import Signup from './Signup';
 import Login from './Login';
@@ -16,6 +17,7 @@ const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
     <AuthProvider>
+      <Header />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="signup" element={<Signup />} />
