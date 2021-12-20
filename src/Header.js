@@ -1,37 +1,31 @@
-import { useState, useContext, useEffect } from 'react';
-import { AuthContext } from './authContext';
-import axios from 'axios';
 import {
-	Link
+	// useState,
+	useContext,
+	// useEffect
+} from 'react';
+// import axios from 'axios';
+import {
+	Link,
 } from "react-router-dom";
-
-const url = 'https://api-for-missions-and-railways.herokuapp.com/';
-
+import { Logout } from './Logout'
+import { AuthContext } from './Context/AuthContext';
+import { UserNameContext } from './Context/UserNameContext';
 
 function Header () {
-	const [ userName, setUserName ] = useState('');
-	const auth_context = useContext(AuthContext);
-
-	useEffect(() => {
-		axios.get( url + 'users', {
-			headers: {
-				Authorization: `Bearer ${auth_context.auth_token}`
-			}
-		})
-			.then(res => {
-				console.log(res.data.name);
-				setUserName(res.data.name);
-			})
-			.catch(error => console.log('...error', error))
-	}, [])
+	const { isAuthenticated } = useContext(AuthContext);
+	const { userName } = useContext(UserNameContext);
 
 	return (
 		<header>
 			<h1>Book Review App</h1>
 			<div>
-				{ auth_context.isAuthenticated ? (
+				{ isAuthenticated ? (
 					<div>
-						ユーザー名：{ userName }
+						<div>
+							ユーザー名：{ userName }
+						</div>
+						<Link to='/profile'>ユーザー情報の編集</Link>
+						<Logout />
 					</div>
 					) : (
 						<Link to="/login">ログイン</Link>

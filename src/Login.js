@@ -5,14 +5,14 @@ import {
 	Navigate,
   Link
 } from "react-router-dom";
-import { AuthContext } from './authContext';
+import { AuthContext } from './Context/AuthContext';
 import axios from 'axios';
 
 
 export default function Login() {
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
-	const auth_context = useContext(AuthContext);
+	const { setIsAuthenticated, isAuthenticated }  = useContext(AuthContext);
 	const url = 'https://api-for-missions-and-railways.herokuapp.com/signin';
 
 	const hundleSubmit = (event) => {
@@ -20,23 +20,24 @@ export default function Login() {
 		axios.post( url, { email, password } )
 			.then(res => {
 				localStorage.setItem('auth_token', res.data.token);
-				auth_context.setIsAuthenticated(true);
+				setIsAuthenticated(true);
 				console.log('api return');
-				console.log(auth_context.isAuthenticated);
 			})
 				.catch(error => {
 					console.log('...Error', error);
-				});
+				})
+				.finally(
+					setIsAuthenticated(false)
+				);
 		console.log('hundleSubmit!');
 	}
 
 	return (
-		auth_context.isAuthenticated ? (
+		isAuthenticated ? (
 			<Navigate to="/" replace />
 		) : (
 			<div>
 				<h2>Login</h2>
-				<h2> {auth_context.isAuthenticated} </h2>
 				<Form onSubmit={hundleSubmit} className='signup-form'>
 					<Form.Group className="mb-3">
 						<Form.Label>Email address</Form.Label>

@@ -3,9 +3,8 @@ import { createContext, useEffect, useState } from 'react';
 export const AuthContext = createContext({
 	isAuthenticated: false,
 	setIsAuthenticated: () => {},
-	authToken: ''
+	auth_token: ''
 });
-export const AuthInfo = createContext();
 
 const AuthProvider = (props) => {
 	const [ isAuthenticated, setIsAuthenticated ] = useState(false);

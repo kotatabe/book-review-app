@@ -10,19 +10,24 @@ import Header from './Header.js'
 import App from './App';
 import Signup from './Signup';
 import Login from './Login';
+import Profile from './Profile';
 import { render } from "react-dom";
-import AuthProvider from './authContext.js';
+import AuthProvider from './Context/AuthContext.js';
+import { UserNameProvider } from './Context/UserNameContext.js';
 
 const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
     <AuthProvider>
-      <Header />
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="login" element={<Login />} />
-      </Routes>
+      <UserNameProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="login" element={<Login />} />
+            <Route path="profile" element={<Profile />} />
+          </Routes>
+      </UserNameProvider>
     </AuthProvider>
   </BrowserRouter>,
   rootElement

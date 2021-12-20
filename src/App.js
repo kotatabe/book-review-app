@@ -1,23 +1,28 @@
 import * as React from 'react';
-import { useEffect, useState, useContext } from 'react';
+import {
+	useEffect,
+	useState,
+	useContext
+} from 'react';
 import {
 	Navigate,
 	Link
 } from "react-router-dom";
-import './App.scss';
+import './assets/App.scss';
 import axios from 'axios';
-import { AuthContext } from './authContext';
+import { AuthContext } from './Context/AuthContext';
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
 export default function App() {
 	const [ bookList, setBookList ] = useState([]);
-	const auth_context = useContext(AuthContext);
+	const { auth_token, isAuthenticated } = useContext(AuthContext);
 
 	useEffect(() => {
-		axios.get( url + '/books?offset=1', {
+		// localStorage.removeItem('auth_token');
+		axios.get( `${url}/books?offset=1`, {
 			headers: {
-				Authorization: `Bearer ${auth_context.auth_token}`
+				Authorization: `Bearer ${auth_token}`
 			}
 		})
 			.then(res => {
@@ -25,12 +30,12 @@ export default function App() {
 				console.log(res.data);
 				console.log('api return');
 			})
-			.catch(error => console.log('error', error))
-	}, [auth_context.auth_token]);
+			.catch(error => console.log('...error', error));
+	}, [auth_token]);
 
 	return (
-		auth_context.isAuthenticated ? (
-			<div>
+		isAuthenticated ? (
+			<>
 				<ul className='book-list-container'>
 					{ bookList.map( (info) => 
 						<li>
@@ -50,7 +55,7 @@ export default function App() {
 				<Link to="/">Home</Link> |{" "}
 				<Link to="signup">Sign up</Link> |{" "}
 				<Link to="/login">login</Link>
-			</div>
+			</>
 		) : (
 			<Navigate to="/login" replace />
 		)
