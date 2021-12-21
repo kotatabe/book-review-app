@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 import {
   Link
 } from 'react-router-dom';
-import { AuthContext } from './Context/AuthContext';
-import { UserNameContext } from './Context/UserNameContext';
+import { AuthContext } from '../Context/AuthContext';
+import { UserNameContext } from '../Context/UserNameContext';
 import axios from 'axios';
 
 

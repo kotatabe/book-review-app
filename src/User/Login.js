@@ -5,7 +5,7 @@ import {
 	Navigate,
   Link
 } from "react-router-dom";
-import { AuthContext } from './Context/AuthContext';
+import { AuthContext } from '../Context/AuthContext';
 import axios from 'axios';
 
 

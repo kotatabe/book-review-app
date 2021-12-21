@@ -8,9 +8,9 @@ import {
 } from "react-router-dom";
 import Header from './Header.js'
 import App from './App';
-import Signup from './Signup';
-import Login from './Login';
-import Profile from './Profile';
+import Signup from './User/Signup';
+import Login from './User/Login';
+import Profile from './User/Profile';
 import { render } from "react-dom";
 import AuthProvider from './Context/AuthContext.js';
 import { UserNameProvider } from './Context/UserNameContext.js';

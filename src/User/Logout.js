@@ -9,8 +9,8 @@ import {
 } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { AuthContext } from './Context/AuthContext';
-import { UserNameContext } from './Context/UserNameContext';
+import { AuthContext } from '../Context/AuthContext';
+import { UserNameContext } from '../Context/UserNameContext';
 
 export function Logout() {
 	const navigate = useNavigate();

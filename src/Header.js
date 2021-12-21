@@ -1,13 +1,10 @@
 import {
-	// useState,
 	useContext,
-	// useEffect
 } from 'react';
-// import axios from 'axios';
 import {
 	Link,
 } from "react-router-dom";
-import { Logout } from './Logout'
+import { Logout } from './User/Logout'
 import { AuthContext } from './Context/AuthContext';
 import { UserNameContext } from './Context/UserNameContext';
 
