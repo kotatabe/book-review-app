@@ -4,9 +4,7 @@ import {
 } from 'react';
 import {
 	Link as RouterLink,
-	useNavigate, // === useHistory
 } from "react-router-dom";
-import { Logout } from './User/Logout'
 import { useLogout } from './User/Logout'
 import { AuthContext } from './Context/AuthContext';
 import { UserNameContext } from './Context/UserNameContext';
@@ -37,16 +35,8 @@ import Typography from '@mui/material/Typography';
 function Header () {
 	const { isAuthenticated } = useContext(AuthContext);
 	const { userName } = useContext(UserNameContext);
-	const { setIsAuthenticated } = useContext(AuthContext);
 	const [ anchorEl, setAnchorEl ] = React.useState(null);
 	const { logout, profile } = useLogout();
-	// const navigate = useNavigate();
-
-	// const logout = () => {
-	// 	localStorage.removeItem('auth_token');
-	// 	setIsAuthenticated(false);
-	// 	navigate("/login");
-	// }
 
 	// const handleChange = (event) => {
   //   setAuth(event.target.checked);
