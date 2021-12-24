@@ -14,6 +14,8 @@ import Profile from './User/Profile';
 import { render } from "react-dom";
 import AuthProvider from './Context/AuthContext.js';
 import { UserNameProvider } from './Context/UserNameContext.js';
+import Container from '@mui/material/Container';
+
 
 const rootElement = document.getElementById("root");
 render(
@@ -21,12 +23,14 @@ render(
     <AuthProvider>
       <UserNameProvider>
           <Header />
-          <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="login" element={<Login />} />
-            <Route path="profile" element={<Profile />} />
-          </Routes>
+          <Container component="main" maxWidth="sm">
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="signup" element={<Signup />} />
+              <Route path="login" element={<Login />} />
+              <Route path="profile" element={<Profile />} />
+            </Routes>
+          </Container>
       </UserNameProvider>
     </AuthProvider>
   </BrowserRouter>,

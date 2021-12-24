@@ -6,11 +6,16 @@ import {
 } from 'react';
 import {
 	Navigate,
-	Link
+	Link as RouterLink,
 } from "react-router-dom";
 import './assets/App.scss';
 import axios from 'axios';
 import { AuthContext } from './Context/AuthContext';
+
+import Box from '@mui/material/Box';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Link from '@mui/material/Link';
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
@@ -38,23 +43,54 @@ export default function App() {
 			<>
 				<ul className='book-list-container'>
 					{ bookList.map( (info) => 
-						<li>
-							<div>
+						<Box
+							component="li"
+							sx={{
+								width: 650,
+								height: 150,
+								bgcolor: "#fff",
+								borderBottom: "1px solid #dcdcdc",
+								display: "flex",
+							}}
+						>
+							<Box
+								sx={{
+									width: 80,
+									height: 108,
+									bgcolor: "#e2e2e2",
+								}}
+							>
+								<ListItemIcon>
+									<MenuBookIcon fontSize="large" />
+								</ListItemIcon>
+							</Box>
+							<Link
+								conponent={RouterLink}
+								to="#"
+							>
 								{info.title}
-							</div>
-							<div>
-								<a href={info.url}>書籍のURL</a> 
-							</div>
-							<div className="detail">
-								{info.detail} 
-							</div>
-							<hr />
-						</li>
+							</Link>
+							{
+								// info.url
+							}
+						</Box>
+						// <li>
+						// 	<div>
+						// 		{info.title}
+						// 	</div>
+						// 	<div>
+						// 		<a href={info.url}>書籍のURL</a> 
+						// 	</div>
+						// 	<div className="detail">
+						// 		{info.detail} 
+						// 	</div>
+						// 	<hr />
+						// </li>
 					)}
 				</ul>
-				<Link to="/">Home</Link> |{" "}
-				<Link to="signup">Sign up</Link> |{" "}
-				<Link to="/login">login</Link>
+				<RouterLink to="/">Home</RouterLink> |{" "}
+				<RouterLink to="signup">Sign up</RouterLink> |{" "}
+				<RouterLink to="/login">login</RouterLink>
 			</>
 		) : (
 			<Navigate to="/login" replace />
