@@ -46,12 +46,6 @@ export default function SignIn() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		// eslint-disable-next-line no-console
-		console.log({
-			email: data.get('email'),
-			password: data.get('password'),
-		});
 		axios.post( url, { email, password } )
 		.then(res => {
 			localStorage.setItem('auth_token', res.data.token);
@@ -64,7 +58,7 @@ export default function SignIn() {
 			.finally(
 				setIsAuthenticated(false)
 			);
-		console.log('hundleSubmit!');
+		console.log('handleSubmit!');
 	};
 
   return (

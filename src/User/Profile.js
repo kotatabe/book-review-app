@@ -18,7 +18,7 @@ function Profile () {
 	const [ name, setName ] = useState(userName);
 	const { auth_token } = useContext(AuthContext);
 
-	const hundleSubmit = (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
 		axios.put( `${url}/users`, { name/*: name*/ }, {
 			headers: {
@@ -41,7 +41,7 @@ function Profile () {
 	return (
 		<>
 			<h2>ユーザー情報の編集</h2>
-			<Form onSubmit={hundleSubmit} className="signup-form" >
+			<Form onSubmit={handleSubmit} className="signup-form" >
 				<Form.Group className="mb-3">
 					<Form.Label>ユーザー名</Form.Label>
 					<Form.Control

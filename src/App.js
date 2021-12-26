@@ -11,11 +11,14 @@ import {
 import './assets/App.scss';
 import axios from 'axios';
 import { AuthContext } from './Context/AuthContext';
+import ReviewDetail from './ReviewDetail';
+import NewReviewModal from './PostNewReview';
 
 import Box from '@mui/material/Box';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
@@ -41,6 +44,10 @@ export default function App() {
 	return (
 		isAuthenticated ? (
 			<>
+				{/* <Button variant="contained" sx={{ my: 2 }}>
+					レビューを投稿する
+				</Button> */}
+				<NewReviewModal />
 				<ul className='book-list-container'>
 					{ bookList.map( (info) => 
 						<Box
@@ -51,6 +58,7 @@ export default function App() {
 								bgcolor: "#fff",
 								borderBottom: "1px solid #dcdcdc",
 								display: "flex",
+								verticalAlign: "middle",
 							}}
 						>
 							<Box
@@ -71,21 +79,25 @@ export default function App() {
 								{info.title}
 							</Link>
 							{
-								// info.url
+								info.review
 							}
+							<Button
+								component={RouterLink}
+								// to={`book/${info.id}`}
+								to="#"
+								variant="outlined"
+								verticalAlign="middle"
+								display="inline-block"
+								sx={{
+									height: 30,
+									width: "auto",
+									// display: "inline-block",
+									// verticalAlign: "middle",
+								}}
+							>
+								レビューを読む
+							</Button>
 						</Box>
-						// <li>
-						// 	<div>
-						// 		{info.title}
-						// 	</div>
-						// 	<div>
-						// 		<a href={info.url}>書籍のURL</a> 
-						// 	</div>
-						// 	<div className="detail">
-						// 		{info.detail} 
-						// 	</div>
-						// 	<hr />
-						// </li>
 					)}
 				</ul>
 				<RouterLink to="/">Home</RouterLink> |{" "}

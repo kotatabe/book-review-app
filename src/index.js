@@ -15,6 +15,7 @@ import { render } from "react-dom";
 import AuthProvider from './Context/AuthContext.js';
 import { UserNameProvider } from './Context/UserNameContext.js';
 import Container from '@mui/material/Container';
+import ReviewDetail from './ReviewDetail.js';
 
 
 const rootElement = document.getElementById("root");
@@ -29,6 +30,7 @@ render(
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={<Login />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="book/:id" element={<ReviewDetail />} />
             </Routes>
           </Container>
       </UserNameProvider>
