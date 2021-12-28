@@ -16,27 +16,28 @@ import AuthProvider from './Context/AuthContext.js';
 import { UserNameProvider } from './Context/UserNameContext.js';
 import Container from '@mui/material/Container';
 import ReviewDetail from './ReviewDetail.js';
-
+import EditReview from './EditReview.js';
 
 const rootElement = document.getElementById("root");
 render(
-  <BrowserRouter>
-    <AuthProvider>
-      <UserNameProvider>
-          <Header />
-          <Container component="main" maxWidth="sm">
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="signup" element={<Signup />} />
-              <Route path="login" element={<Login />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="book/:id" element={<ReviewDetail />} />
-            </Routes>
-          </Container>
-      </UserNameProvider>
-    </AuthProvider>
-  </BrowserRouter>,
-  rootElement
+	<BrowserRouter>
+		<AuthProvider>
+			<UserNameProvider>
+					<Header />
+					<Container component="main" maxWidth="sm">
+						<Routes>
+							<Route path="/" element={<App />} />
+							<Route path="signup" element={<Signup />} />
+							<Route path="login" element={<Login />} />
+							<Route path="profile" element={<Profile />} />
+							<Route path="detail/:id" element={<ReviewDetail />} />
+							<Route path="edit/:id" element={<EditReview />} />
+						</Routes>
+					</Container>
+			</UserNameProvider>
+		</AuthProvider>
+	</BrowserRouter>,
+	rootElement
 );
 
 // If you want to start measuring performance in your app, pass a function

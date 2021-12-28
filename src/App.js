@@ -75,24 +75,25 @@ export default function App() {
 							<Link
 								conponent={RouterLink}
 								to="#"
+								sx={{
+									mx: 1,
+									mr: 3,
+								}}
 							>
 								{info.title}
 							</Link>
-							{
+							{/* {
 								info.review
-							}
+							} */}
 							<Button
 								component={RouterLink}
-								// to={`book/${info.id}`}
-								to="#"
+								to={`detail/${info.id}`}
 								variant="outlined"
 								verticalAlign="middle"
 								display="inline-block"
 								sx={{
 									height: 30,
 									width: "auto",
-									// display: "inline-block",
-									// verticalAlign: "middle",
 								}}
 							>
 								レビューを読む
