@@ -96,7 +96,10 @@ function Header () {
 								>
 								<MenuItem onClick={profile}>プロフィール</MenuItem>
 								<MenuItem onClick={handleClose}>アカウント</MenuItem>
-								<MenuItem onClick={logout}>
+								<MenuItem onClick={() => {
+									logout();
+									handleClose();
+								}}>
 									<ListItemIcon>
 										<LogoutIcon fontSize="small" />
 									</ListItemIcon>

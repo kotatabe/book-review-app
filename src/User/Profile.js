@@ -33,9 +33,6 @@ function Profile () {
 			.catch(error => {
 				console.log('...Error', error);
 			});
-			// .finally(
-			// 	localStorage.removeItem('auth_token')
-			// );
 	}
 
 	return (

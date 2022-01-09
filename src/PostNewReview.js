@@ -75,6 +75,8 @@ export default function NewReviewModal() {
 							value={detail}
 							onChange={event => setDetail(event.target.value)}
 							fullWidth
+							multiline
+							rows={5}
 						/>
 						<TextField
 							margin="normal"

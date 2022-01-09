@@ -66,6 +66,10 @@ export default function ReviewDetail () {
 				{ reviewData.isMine && (
 					<Button
 						component={RouterLink}
+						state={{
+							reviewData: reviewData,
+							setReviewData: setReviewData
+						}}
 						to={`/edit/${reviewData.id}`}
 						variant="outlined"
 						sx={{
