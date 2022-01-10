@@ -21,6 +21,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { bgcolor } from '@mui/system';
 
 
 function Header () {
@@ -44,7 +45,10 @@ function Header () {
 				position="static"
 				color="default"
 				elevation={0}
-				sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+				sx={{
+					borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+					bgcolor: "#4ea6cc",
+				}}
 			>
 				<Toolbar sx={{ flexWrap: 'wrap' }}>
 				{/* <Toolbar> */}
