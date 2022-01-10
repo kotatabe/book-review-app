@@ -29,10 +29,6 @@ function Header () {
 	const [ anchorEl, setAnchorEl ] = React.useState(null);
 	const { logout, profile } = useLogout();
 
-	// const handleChange = (event) => {
-  //   setAuth(event.target.checked);
-  // };
-
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -52,14 +48,16 @@ function Header () {
 			>
 				<Toolbar sx={{ flexWrap: 'wrap' }}>
 				{/* <Toolbar> */}
-					<Typography
+					<Link
+						component={RouterLink}
+						to="/"
 						variant="h6"
 						color="inherit"
-						noWrap
 						sx={{ flexGrow: 1 }}
+						underline="none"
 					>
 						Book Review App
-					</Typography>
+					</Link>
 						{isAuthenticated ? (
 							<>
 								<Typography sx={{ minWidth: 100 }}
@@ -109,7 +107,7 @@ function Header () {
 							</>
 						) : (
 							<Link
-								conponent={RouterLink}
+								component={RouterLink}
 								to="/login"
 							>
 								ログイン
