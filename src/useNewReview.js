@@ -3,15 +3,7 @@ import {
 	useContext,
 	// useEffect
 } from 'react';
-// import {
-// 	useNavigate, // === useHistory
-// 	Link,
-// } from "react-router-dom";
-// import Form from 'react-bootstrap/Form';
-// import Button from 'react-bootstrap/Button';
-// import Button from '@mui/material/Button';
 import { AuthContext } from './Context/AuthContext';
-// import { UserNameContext } from './Context/UserNameContext';
 import axios from 'axios';
 
 const api_url = 'https://api-for-missions-and-railways.herokuapp.com';

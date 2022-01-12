@@ -1,8 +1,4 @@
 import {
-  BrowserRouter,
-  Routes,
-  Route,
-	useLocation,
 	useParams,
 } from "react-router-dom";
 import axios from 'axios';
@@ -12,22 +8,14 @@ import {
 	useState,
 } from 'react';
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from './Context/AuthContext'
 
-
+import SimpleSnackBar from "./SnackBar";
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
@@ -35,8 +23,19 @@ export default function EditReview () {
 	const { id } = useParams();
 	const { auth_token } = useContext(AuthContext);
 	const [ reviewData, setReviewData ] = useState({});
-	// const location = useLocation();
-	// const { reviewData, setReviewData } = location.state;
+	const [ status, setStatus ] = useState({
+		open: false,
+		type: "success",
+		message: "成功しました。",
+	});
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setStatus({...status, open: false});
+	};
 
 	useEffect(() => {
 		axios.get( `${url}/books/${id}`, {
@@ -70,12 +69,13 @@ export default function EditReview () {
 				}
 			})
 				.then(res => {
-				setReviewData({
+					setReviewData({
 						title: res.data.title,
 						url: res.data.url,
 						detail: res.data.detail,
 						review: res.data.review,
 					});
+					setStatus({ ...status, open: true })
 				})
 				.catch(error => {
 					console.log('...Error', error);
@@ -84,80 +84,93 @@ export default function EditReview () {
 
 	return (
 		<>
-			<Typography variant="h5" color="initial" sx={{mt: 2}}>
-				書籍の編集
-			</Typography>
-			<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-				<Grid container spacing={2}>
-					<Grid item xs={12}>
-						<TextField
-							name="title"
-							fullWidth
-							label="タイトル"
-							value={ reviewData.title }
-							onChange={ e => setReviewData( prev => (
-								{
-									...prev,
-									title: e.target.value,
-								}
-							))}
-						/>
+			<Box sx={{
+				my: 3,
+				p: 3,
+				border: '2px solid #eeeeee',
+				borderRadius: 1,
+			}}>
+				<Typography variant="h5" color="initial" sx={{mt: 0}}>
+					書籍の編集
+				</Typography>
+				<SimpleSnackBar
+					open={status.open}
+					type={status.type}
+					message={status.message}
+					handleClose={handleClose}
+					/>
+				<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+					<Grid container spacing={2}>
+						<Grid item xs={12}>
+							<TextField
+								name="title"
+								label="タイトル"
+								fullWidth
+								value={ reviewData.title }
+								onChange={ e => setReviewData( prev => (
+									{
+										...prev,
+										title: e.target.value,
+									}
+									))}
+									/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								name="url"
+								fullWidth
+								label="URL"
+								value={ reviewData.url }
+								onChange={ e => setReviewData( prev => (
+									{
+										...prev,
+										url: e.target.value,
+									}
+									))}
+									/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								name="detail"
+								fullWidth
+								label="本の概要"
+								value={ reviewData.detail }
+								multiline
+								rows={2}
+								onChange={ e => setReviewData( prev => (
+									{
+										...prev,
+										detail: e.target.value,
+									}
+									))}
+									/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								name="review"
+								fullWidth
+								label="本のレビュー・感想"
+								value={ reviewData.review }
+								multiline
+								rows={5}
+								onChange={ e => setReviewData( prev => (
+									{
+										...prev,
+										review: e.target.value,
+									}
+									))}
+									/>
+						</Grid>
 					</Grid>
-					<Grid item xs={12}>
-						<TextField
-							name="url"
-							fullWidth
-							label="URL"
-							value={ reviewData.url }
-							onChange={ e => setReviewData( prev => (
-								{
-									...prev,
-									url: e.target.value,
-								}
-							))}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<TextField
-							name="detail"
-							fullWidth
-							label="本の概要"
-							value={ reviewData.detail }
-							multiline
-							rows={2}
-							onChange={ e => setReviewData( prev => (
-								{
-									...prev,
-									detail: e.target.value,
-								}
-							))}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<TextField
-							name="review"
-							fullWidth
-							label="本のレビュー・感想"
-							value={ reviewData.review }
-							multiline
-							rows={5}
-							onChange={ e => setReviewData( prev => (
-								{
-									...prev,
-									review: e.target.value,
-								}
-							))}
-						/>
-					</Grid>
-				</Grid>
-				<Button
-					type="submit"
-					variant="contained"
-					fullWidth
-					sx={{ mt: 3, mb: 2 }}
-				>
-					編集を完了する
-				</Button>
+					<Button
+						type="submit"
+						variant="contained"
+						fullWidth
+						sx={{ mt: 3, mb: 2 }}
+						>
+						編集を完了する
+					</Button>
+				</Box>
 			</Box>
 		</>
 	)
