@@ -27,53 +27,67 @@ export default function NewReviewModal() {
 	const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-	const [ title, setTitle ] = useState('');
-	const [ url, setUrl ] = useState('');
-	const [ detail, setDetail ] = useState('');
-	const [ review, setReview ] = useState('');
+	const [ reviewData, setReviewData ] = useState({
+		title: '',
+		url: '',
+		detail: '',
+		review: '',
+	});
 	const { new_review } = useNewReview();
 
 	const hundelSubmit = (event) => {
 		event.preventDefault();
 		new_review({
-			title, url, detail, review
+			title: reviewData.title,
+			url: reviewData.url,
+			detail: reviewData.detail,
+			review: reviewData.review,
 		});
 		handleClose();
 	}
 
 	return (
-		<div>
-			<Button onClick={handleOpen}>レビューの新規作成</Button>
+		<>
+			<Button variant="contained" onClick={handleOpen} >レビューの新規作成</Button>
 			<Modal
 				open={open}
 				onClose={handleClose}
 				aria-labelledby="modal-modal-title"
 			>
 				<Box sx={style}>
-					<Typography id="modal-modal-title" variant="h6" component="h2" sx={{my: 2}}>
+					<Typography id="modal-modal-title" variant="h6" component="h2" sx={{mb: 2}}>
 						レビューの投稿
 					</Typography>
+
 					<Box component="form" onSubmit={hundelSubmit}>
 						<TextField
-							// margin="normal"
 							placeholder="タイトル"
-							value={title}
-							onChange={event => setTitle(event.target.value)}
+							value={reviewData.title}
+							onChange={event => setReviewData(prev =>({
+								...prev,
+								title: event.target.value,
+							}))}
 							autoFocus
 							fullWidth
 						/>
 						<TextField
 							margin="normal"
 							placeholder="URL"
-							value={url}
-							onChange={event => setUrl(event.target.value)}
+							value={reviewData.url}
+							onChange={event => setReviewData(prev =>({
+								...prev,
+								url: event.target.value,
+							}))}
 							fullWidth
 						/>
 						<TextField
 							margin="normal"
 							placeholder="詳細"
-							value={detail}
-							onChange={event => setDetail(event.target.value)}
+							value={reviewData.detail}
+							onChange={event => setReviewData(prev =>({
+								...prev,
+								detail: event.target.value,
+							}))}
 							fullWidth
 							multiline
 							rows={5}
@@ -81,9 +95,12 @@ export default function NewReviewModal() {
 						<TextField
 							margin="normal"
 							placeholder="レビューや感想を書く"
-							value={review}
+							value={reviewData.review}
 							autoFocus
-							onChange={event => setReview(event.target.value)}
+							onChange={event => setReviewData(prev =>({
+								...prev,
+								review: event.target.value,
+							}))}
 							fullWidth
 							multiline
 							rows={5}
@@ -98,6 +115,6 @@ export default function NewReviewModal() {
 					</Box>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }

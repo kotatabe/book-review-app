@@ -17,6 +17,7 @@ import { UserNameProvider } from './Context/UserNameContext.js';
 import Container from '@mui/material/Container';
 import ReviewDetail from './ReviewDetail.js';
 import EditReview from './EditReview.js';
+import BasicTable from './table.js';
 
 const rootElement = document.getElementById("root");
 render(
@@ -32,6 +33,7 @@ render(
 							<Route path="profile" element={<Profile />} />
 							<Route path="detail/:id" element={<ReviewDetail />} />
 							<Route path="edit/:id" element={<EditReview />} />
+							<Route path="/table" element={<BasicTable />} />
 						</Routes>
 					</Container>
 			</UserNameProvider>

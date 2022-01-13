@@ -10,15 +10,15 @@ import {
 } from "react-router-dom";
 import './assets/App.scss';
 import axios from 'axios';
-import { AuthContext } from './Context/AuthContext';
-import ReviewDetail from './ReviewDetail';
-import NewReviewModal from './PostNewReview';
-
 import Box from '@mui/material/Box';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
+import { AuthContext } from './Context/AuthContext';
+import ReviewDetail from './ReviewDetail';
+import NewReviewModal from './PostNewReview';
+import { bgcolor, borderColor } from '@mui/system';
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
@@ -44,63 +44,85 @@ export default function App() {
 	return (
 		isAuthenticated ? (
 			<>
-				{/* <Button variant="contained" sx={{ my: 2 }}>
-					レビューを投稿する
-				</Button> */}
 				<NewReviewModal />
-				<ul className='book-list-container'>
-					{ bookList.map( (info) => 
-						<Box
-							component="li"
-							sx={{
-								width: 650,
-								height: 150,
-								bgcolor: "#fff",
-								borderBottom: "1px solid #dcdcdc",
-								display: "flex",
-								verticalAlign: "middle",
-							}}
-						>
+				<Box
+					sx={{
+						my: 2,
+						border: 1,
+						bgcolor: "grey.50",
+						borderColor: "grey.300",
+						borderRadius: 1,
+					}}
+				>
+					<ul className='book-list-container'>
+						{ bookList.map( (info) => 
 							<Box
+								component="div"
 								sx={{
-									width: 80,
-									height: 108,
-									bgcolor: "#e2e2e2",
+									p: 1,
+									width: "100%",
+									height: 100,
+									bgcolor: 'inherit',
+									borderBottom: "1px solid #dcdcdc",
+									display: "flex",
+									verticalAlign: "middle",
 								}}
-							>
-								<ListItemIcon>
-									<MenuBookIcon fontSize="large" />
-								</ListItemIcon>
+								>
+								<Box
+									sx={{
+										// display: "flex",
+										verticalAlign: "middle",
+										borderRadius: "50%",
+										width: 60,
+										height: 60,
+										bgcolor: "grey.500",
+									}}
+									>
+									<ListItemIcon
+										sx={{
+											mx: "auto",
+											p: 1,
+											width: "100%",
+											height: "100%",
+											display: "flex",
+											alignItems: "center",
+										}}
+									>
+										<MenuBookIcon
+											fontSize="large"
+											sx={{
+												m: "auto",
+											}}
+										/>
+									</ListItemIcon>
+								</Box>
+								<Link
+									conponent={RouterLink}
+									to="#"
+									sx={{
+										mx: 1,
+										mr: 3,
+									}}
+								>
+									{info.title}
+								</Link>
+								<Button
+									component={RouterLink}
+									to={`detail/${info.id}`}
+									variant="outlined"
+									verticalAlign="middle"
+									display="inline-block"
+									sx={{
+										height: 30,
+										width: "auto",
+									}}
+								>
+									レビューを読む
+								</Button>
 							</Box>
-							<Link
-								conponent={RouterLink}
-								to="#"
-								sx={{
-									mx: 1,
-									mr: 3,
-								}}
-							>
-								{info.title}
-							</Link>
-							{/* {
-								info.review
-							} */}
-							<Button
-								component={RouterLink}
-								to={`detail/${info.id}`}
-								variant="outlined"
-								verticalAlign="middle"
-								display="inline-block"
-								sx={{
-									height: 30,
-									width: "auto",
-								}}
-							>
-								レビューを読む
-							</Button>
-						</Box>
-					)}
-				</ul>
+						)}
+					</ul>
+				</Box>
 				<RouterLink to="/">Home</RouterLink> |{" "}
 				<RouterLink to="signup">Sign up</RouterLink> |{" "}
 				<RouterLink to="/login">login</RouterLink>

@@ -51,72 +51,75 @@ function Header () {
 				}}
 			>
 				<Toolbar sx={{ flexWrap: 'wrap' }}>
-				{/* <Toolbar> */}
-					<Link
-						component={RouterLink}
-						to="/"
+					<Typography
 						variant="h6"
 						color="inherit"
 						sx={{ flexGrow: 1 }}
-						underline="none"
 					>
-						Book Review App
-					</Link>
-						{isAuthenticated ? (
-							<>
-								<Typography sx={{ minWidth: 100 }}
-									color="initial"
-									sx={{ my: 1, mx: 1.5 }}
-								>
-									ユーザー名：{ userName }
-								</Typography>
-								<IconButton
-									size="large"
-									aria-label="account of current user"
-									aria-controls="menu-appbar"
-									aria-haspopup="true"
-									onClick={handleMenu}
-									color="inherit"
-									noWrap
-								>
-									<AccountCircle />
-								</IconButton>
-								<Menu
-									id="menu-appbar"
-									anchorEl={anchorEl}
-									anchorOrigin={{
-										vertical: 'top',
-										horizontal: 'right',
-									}}
-									keepMounted
-									transformOrigin={{
-										vertical: 'top',
-										horizontal: 'right',
-									}}
-									open={Boolean(anchorEl)}
-									onClose={handleClose}
-								>
-								<MenuItem onClick={profile}>プロフィール</MenuItem>
-								<MenuItem onClick={handleClose}>アカウント</MenuItem>
-								<MenuItem onClick={() => {
-									logout();
-									handleClose();
-								}}>
-									<ListItemIcon>
-										<LogoutIcon fontSize="small" />
-									</ListItemIcon>
-									ログアウト
-								</MenuItem>
-							</Menu>
-							</>
-						) : (
-							<Link
-								component={RouterLink}
-								to="/login"
+						<Link
+							component={RouterLink}
+							to="/"
+							underline="none"
+							color="inherit"
+						>
+							Book Review App
+						</Link>
+					</Typography>
+					{isAuthenticated ? (
+						<>
+							<Typography sx={{ minWidth: 100 }}
+								color="initial"
+								sx={{ my: 1, mx: 1.5 }}
 							>
-								ログイン
-							</Link>
-						)}
+								ユーザー名：{ userName }
+							</Typography>
+							<IconButton
+								size="large"
+								aria-label="account of current user"
+								aria-controls="menu-appbar"
+								aria-haspopup="true"
+								onClick={handleMenu}
+								color="inherit"
+								noWrap
+							>
+								<AccountCircle />
+							</IconButton>
+							<Menu
+								id="menu-appbar"
+								anchorEl={anchorEl}
+								anchorOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+								}}
+								open={Boolean(anchorEl)}
+								onClose={handleClose}
+							>
+							<MenuItem onClick={profile}>プロフィール</MenuItem>
+							<MenuItem onClick={handleClose}>アカウント</MenuItem>
+							<MenuItem onClick={() => {
+								logout();
+								handleClose();
+							}}>
+								<ListItemIcon>
+									<LogoutIcon fontSize="small" />
+								</ListItemIcon>
+								ログアウト
+							</MenuItem>
+						</Menu>
+						</>
+					) : (
+						<Link
+							component={RouterLink}
+							to="/login"
+						>
+							ログイン
+						</Link>
+					)}
 				</Toolbar>
 			</AppBar>
 		</header>
