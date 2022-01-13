@@ -67,17 +67,16 @@ export default function App() {
 									display: "flex",
 									verticalAlign: "middle",
 								}}
-								>
+							>
 								<Box
 									sx={{
-										// display: "flex",
 										verticalAlign: "middle",
 										borderRadius: "50%",
 										width: 60,
 										height: 60,
 										bgcolor: "grey.500",
 									}}
-									>
+								>
 									<ListItemIcon
 										sx={{
 											mx: "auto",
@@ -97,11 +96,12 @@ export default function App() {
 									</ListItemIcon>
 								</Box>
 								<Link
-									conponent={RouterLink}
-									to="#"
+									component={RouterLink}
+									to={`detail/${info.id}`}
 									sx={{
 										mx: 1,
-										mr: 3,
+										width: 300,
+										flexGrow: 1,
 									}}
 								>
 									{info.title}
@@ -113,7 +113,7 @@ export default function App() {
 									verticalAlign="middle"
 									display="inline-block"
 									sx={{
-										height: 30,
+										height: "70%",
 										width: "auto",
 									}}
 								>

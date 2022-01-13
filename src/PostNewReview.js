@@ -7,7 +7,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
+import { createStyled, createTheme } from '@mui/system';
 import { useNewReview } from './useNewReview';
+
+const inputStyle = {
+	style: {
+		fontSize: 13,
+	},
+}
 
 const style = {
   position: 'absolute',
@@ -27,13 +34,13 @@ export default function NewReviewModal() {
 	const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+	const { new_review } = useNewReview();
 	const [ reviewData, setReviewData ] = useState({
 		title: '',
 		url: '',
 		detail: '',
 		review: '',
 	});
-	const { new_review } = useNewReview();
 
 	const hundelSubmit = (event) => {
 		event.preventDefault();
@@ -61,6 +68,7 @@ export default function NewReviewModal() {
 
 					<Box component="form" onSubmit={hundelSubmit}>
 						<TextField
+							inputProps={inputStyle}
 							placeholder="タイトル"
 							value={reviewData.title}
 							onChange={event => setReviewData(prev =>({
@@ -71,6 +79,7 @@ export default function NewReviewModal() {
 							fullWidth
 						/>
 						<TextField
+							inputProps={inputStyle}
 							margin="normal"
 							placeholder="URL"
 							value={reviewData.url}
@@ -81,6 +90,7 @@ export default function NewReviewModal() {
 							fullWidth
 						/>
 						<TextField
+							inputProps={inputStyle}
 							margin="normal"
 							placeholder="詳細"
 							value={reviewData.detail}
@@ -93,6 +103,7 @@ export default function NewReviewModal() {
 							rows={5}
 						/>
 						<TextField
+							inputProps={inputStyle}
 							margin="normal"
 							placeholder="レビューや感想を書く"
 							value={reviewData.review}
@@ -105,13 +116,22 @@ export default function NewReviewModal() {
 							multiline
 							rows={5}
 						/>
+						<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+							<Button
+								variant="outlined"
+								onClick={handleClose}
+								sx={{ my: 2, mr: 2,}}
+								>
+								閉じる
+							</Button>
 							<Button
 								type="submit"
 								variant="contained"
-								sx={{ mt: 2, mb: 2 }}
-							>
+								sx={{ my: 2,}}
+								>
 								投稿する
 							</Button>
+						</Box>
 					</Box>
         </Box>
       </Modal>

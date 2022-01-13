@@ -10,6 +10,7 @@ import { AuthContext } from './Context/AuthContext';
 import { UserNameContext } from './Context/UserNameContext';
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import GlobalStyles from '@mui/material/GlobalStyles';
@@ -21,7 +22,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { bgcolor } from '@mui/system';
 
 
 function Header () {
@@ -67,9 +67,9 @@ function Header () {
 					</Typography>
 					{isAuthenticated ? (
 						<>
-							<Typography sx={{ minWidth: 100 }}
+							<Typography
 								color="initial"
-								sx={{ my: 1, mx: 1.5 }}
+								sx={{ minWidth: 100, my: 1, mx: 1.5 }}
 							>
 								ユーザー名：{ userName }
 							</Typography>
@@ -122,6 +122,7 @@ function Header () {
 					)}
 				</Toolbar>
 			</AppBar>
+			<Box sx={{ height: "1em", mb: 1, }}></Box>
 		</header>
 	);
 }
