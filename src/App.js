@@ -16,9 +16,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import { AuthContext } from './Context/AuthContext';
-import ReviewDetail from './ReviewDetail';
 import NewReviewModal from './PostNewReview';
-import { bgcolor, borderColor } from '@mui/system';
+import Typography from '@mui/material/Typography'
+
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
@@ -27,7 +27,6 @@ export default function App() {
 	const { auth_token, isAuthenticated } = useContext(AuthContext);
 
 	useEffect(() => {
-		// localStorage.removeItem('auth_token');
 		axios.get( `${url}/books?offset=1`, {
 			headers: {
 				Authorization: `Bearer ${auth_token}`
@@ -58,6 +57,7 @@ export default function App() {
 						{ bookList.map( (info) => 
 							<Box
 								component="div"
+								key={info.id}
 								sx={{
 									p: 1,
 									width: "100%",
@@ -65,12 +65,10 @@ export default function App() {
 									bgcolor: 'inherit',
 									borderBottom: "1px solid #dcdcdc",
 									display: "flex",
-									verticalAlign: "middle",
 								}}
 							>
 								<Box
 									sx={{
-										verticalAlign: "middle",
 										borderRadius: "50%",
 										width: 60,
 										height: 60,
@@ -89,28 +87,42 @@ export default function App() {
 									>
 										<MenuBookIcon
 											fontSize="large"
-											sx={{
-												m: "auto",
-											}}
+											sx={{ m: "auto", }}
 										/>
 									</ListItemIcon>
 								</Box>
-								<Link
-									component={RouterLink}
-									to={`detail/${info.id}`}
+								<Box
 									sx={{
-										mx: 1,
 										width: 300,
+										ml: 2,
 										flexGrow: 1,
+										overflow: "hidden",
+										textOverflow: "ellipsis",
 									}}
 								>
-									{info.title}
-								</Link>
+									<Link
+										variant="body1"
+										component={RouterLink}
+										to={`detail/${info.id}`}
+										sx={{
+											whiteSpace: "nowrap",
+										}}
+									>
+										{info.title}
+									</Link>
+									<Typography variant="body2" color="initial">
+										{info.reviewer}さんの感想
+									</Typography>
+									<Box
+										sx={{
+										}}
+									>
+									</Box>
+								</Box>
 								<Button
 									component={RouterLink}
 									to={`detail/${info.id}`}
 									variant="outlined"
-									verticalAlign="middle"
 									display="inline-block"
 									sx={{
 										height: "70%",

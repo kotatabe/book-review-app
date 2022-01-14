@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
-import { createStyled, createTheme } from '@mui/system';
+// import { createStyled, createTheme } from '@mui/system';
 import { useNewReview } from './useNewReview';
 
 const inputStyle = {
@@ -65,7 +65,6 @@ export default function NewReviewModal() {
 					<Typography id="modal-modal-title" variant="h6" component="h2" sx={{mb: 2}}>
 						レビューの投稿
 					</Typography>
-
 					<Box component="form" onSubmit={hundelSubmit}>
 						<TextField
 							inputProps={inputStyle}
@@ -107,7 +106,6 @@ export default function NewReviewModal() {
 							margin="normal"
 							placeholder="レビューや感想を書く"
 							value={reviewData.review}
-							autoFocus
 							onChange={event => setReviewData(prev =>({
 								...prev,
 								review: event.target.value,
@@ -128,7 +126,7 @@ export default function NewReviewModal() {
 								type="submit"
 								variant="contained"
 								sx={{ my: 2,}}
-								>
+							>
 								投稿する
 							</Button>
 						</Box>

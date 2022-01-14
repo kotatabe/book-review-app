@@ -22,7 +22,12 @@ const url = 'https://api-for-missions-and-railways.herokuapp.com';
 export default function EditReview () {
 	const { id } = useParams();
 	const { auth_token } = useContext(AuthContext);
-	const [ reviewData, setReviewData ] = useState({});
+	const [ reviewData, setReviewData ] = useState({
+		title: '',
+		url: '',
+		detail: '',
+		review: '',
+	});
 	const [ status, setStatus ] = useState({
 		open: false,
 		type: "success",
@@ -50,7 +55,7 @@ export default function EditReview () {
 			.catch(error => {
 				console.log('...Error', error);
 			});
-	}, [])
+	}, [auth_token, id])
 
 	const handleSubmit = (event) => {
 		event.preventDefault();

@@ -80,7 +80,6 @@ function Header () {
 								aria-haspopup="true"
 								onClick={handleMenu}
 								color="inherit"
-								noWrap
 							>
 								<AccountCircle />
 							</IconButton>

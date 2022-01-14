@@ -8,16 +8,11 @@ import {
 	useParams,
 	Link as RouterLink,
 } from "react-router-dom";
-
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-
 import { AuthContext } from './Context/AuthContext'
-import EditReview from './EditReview'
-
 
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
@@ -40,7 +35,7 @@ export default function ReviewDetail () {
 			.catch(error => {
 				console.log('...Error', error);
 			});
-	}, [])
+	}, [auth_token, id])
 
 	return (
 		<>
