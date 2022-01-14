@@ -45,49 +45,58 @@ export default function ReviewDetail () {
 					border: 1,
 					borderRadius: 2,
 					borderColor: 'grey.400',
-					p: 2,
+					p: 4,
 					my: 2,
 				}}
 			>
 				<Typography variant="h6" color="initial" sx={{ mb: 1 }}>
 					{ reviewData.title }
 				</Typography>
-				<Button
-					variant="contained"
-					href={ reviewData.url }
-				>
-					本の詳細ページへ
-				</Button>
-				{ reviewData.isMine && (
-					<Button
-						component={RouterLink}
-						state={{
-							reviewData: reviewData,
-							setReviewData: setReviewData
-						}}
-						to={`/edit/${reviewData.id}`}
-						variant="outlined"
-						sx={{
-							height: 30,
-							width: "auto",
-						}}
-					>
-						レビューを編集する
-					</Button>
-				)}
 				<Typography
-					variant="subtitle1"
+					variant="caption"
 					color="initial"
 					sx={{
-						mb: 2
+						display: "block",
+						mb: 1,
+						ml: 1,
 					}}
 				>
-					<AccountCircle sx={{ mr: 1 }} />
+					<AccountCircle sx={{ mr: 1, size: "small" }} />
 					{ reviewData.reviewer } さんの感想
 				</Typography>
-				<Typography variant="body2" color="initial" sx={{ mx: 2 }}>
+				<Typography variant="body2" color="initial"
+					sx={{
+						p: 2,
+						mb: 2,
+						border: 1,
+						borderColor: "grey.400",
+						borderRadius: 1,
+						minHeight: 80,
+					}}>
 					{ reviewData.review }
 				</Typography>
+				<Box sx={{display: "flex", justifyContent: "flex-end"}}>
+					<Button
+						variant="outlined"
+						href={ reviewData.url }
+						// sx={{mr: 1}}
+					>
+						本の詳細ページへ
+					</Button>
+					{ reviewData.isMine && (
+						<Button
+							component={RouterLink}
+							state={{
+								reviewData: reviewData,
+								setReviewData: setReviewData
+							}}
+							to={`/edit/${reviewData.id}`}
+							variant="contained"
+						>
+							レビューを編集する
+						</Button>
+					)}
+				</Box>
 			</Box>
 		</>
 	)

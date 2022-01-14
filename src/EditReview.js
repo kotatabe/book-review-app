@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { AuthContext } from './Context/AuthContext'
 
 import SimpleSnackBar from "./SnackBar";
@@ -33,6 +34,12 @@ export default function EditReview () {
 		type: "success",
 		message: "成功しました。",
 	});
+
+	const inputStyle = {
+		style: {
+			fontSize: 12,
+		},
+	}
 
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -91,7 +98,7 @@ export default function EditReview () {
 		<>
 			<Box sx={{
 				my: 3,
-				p: 3,
+				p: 4,
 				border: '2px solid #eeeeee',
 				borderRadius: 1,
 			}}>
@@ -103,11 +110,12 @@ export default function EditReview () {
 					type={status.type}
 					message={status.message}
 					handleClose={handleClose}
-					/>
+				/>
 				<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
+								inputProps={inputStyle}
 								name="title"
 								label="タイトル"
 								fullWidth
@@ -117,11 +125,12 @@ export default function EditReview () {
 										...prev,
 										title: e.target.value,
 									}
-									))}
-									/>
+								))}
+							/>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
+								inputProps={inputStyle}
 								name="url"
 								fullWidth
 								label="URL"
@@ -131,11 +140,12 @@ export default function EditReview () {
 										...prev,
 										url: e.target.value,
 									}
-									))}
-									/>
+								))}
+							/>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
+								inputProps={inputStyle}
 								name="detail"
 								fullWidth
 								label="本の概要"
@@ -147,24 +157,27 @@ export default function EditReview () {
 										...prev,
 										detail: e.target.value,
 									}
-									))}
-									/>
+								))}
+							/>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
+								inputProps={inputStyle}
 								name="review"
 								fullWidth
 								label="本のレビュー・感想"
 								value={ reviewData.review }
 								multiline
-								rows={5}
+								minRows={3}
+								maxRows={20}
+								rows={6}
 								onChange={ e => setReviewData( prev => (
 									{
 										...prev,
 										review: e.target.value,
 									}
-									))}
-									/>
+								))}
+							/>
 						</Grid>
 					</Grid>
 					<Button
@@ -172,7 +185,7 @@ export default function EditReview () {
 						variant="contained"
 						fullWidth
 						sx={{ mt: 3, mb: 2 }}
-						>
+					>
 						編集を完了する
 					</Button>
 				</Box>

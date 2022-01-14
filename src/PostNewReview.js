@@ -17,23 +17,23 @@ const inputStyle = {
 }
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '60%',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: '40%',
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
 	maxHeight: 500,
 	overflow: 'scroll',
-  p: 4,
+	p: 4,
 };
 
 export default function NewReviewModal() {
 	const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 	const { new_review } = useNewReview();
 	const [ reviewData, setReviewData ] = useState({
 		title: '',
