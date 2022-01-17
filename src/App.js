@@ -18,13 +18,15 @@ import Button from '@mui/material/Button';
 import { AuthContext } from './Context/AuthContext';
 import NewReviewModal from './PostNewReview';
 import Typography from '@mui/material/Typography'
-
+import SimpleAlert from "./Alert";
+import { AlertStatContext } from './Context/AlertStatContext';
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
 export default function App() {
 	const [ bookList, setBookList ] = useState([]);
 	const { auth_token, isAuthenticated } = useContext(AuthContext);
+	const { status, setStatus, handleClose } = useContext(AlertStatContext);
 
 	useEffect(() => {
 		axios.get( `${url}/books?offset=1`, {
@@ -34,8 +36,6 @@ export default function App() {
 		})
 			.then(res => {
 				setBookList(res.data);
-				console.log(res.data);
-				console.log('api return');
 			})
 			.catch(error => console.log('...error', error));
 	}, [auth_token]);
@@ -43,6 +43,7 @@ export default function App() {
 	return (
 		isAuthenticated ? (
 			<>
+				<SimpleAlert />
 				<NewReviewModal />
 				<Box
 					sx={{

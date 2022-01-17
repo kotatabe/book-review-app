@@ -1,14 +1,19 @@
 import * as React from 'react';
 import {
 	useState,
+	useContext,
 } from 'react';
+import {
+	useNavigate,
+} from "react-router-dom";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
-// import { createStyled, createTheme } from '@mui/system';
 import { useNewReview } from './useNewReview';
+import { AlertStatContext } from './Context/AlertStatContext';
+import SimpleAlert from "./Alert";
 
 const inputStyle = {
 	style: {
@@ -25,9 +30,11 @@ const style = {
 	bgcolor: 'background.paper',
 	border: '2px solid #000',
 	boxShadow: 24,
-	maxHeight: 500,
+	maxHeight: 700,
+	minWidth: 500,
 	overflow: 'scroll',
-	p: 4,
+	px: 4,
+	py: 2,
 };
 
 export default function NewReviewModal() {
@@ -41,6 +48,7 @@ export default function NewReviewModal() {
 		detail: '',
 		review: '',
 	});
+	const navigate = useNavigate();
 
 	const hundelSubmit = (event) => {
 		event.preventDefault();
@@ -50,11 +58,12 @@ export default function NewReviewModal() {
 			detail: reviewData.detail,
 			review: reviewData.review,
 		});
-		handleClose();
+		// navigate("/", { replace: true });
 	}
 
 	return (
 		<>
+			<SimpleAlert />
 			<Button variant="contained" onClick={handleOpen} >レビューの新規作成</Button>
 			<Modal
 				open={open}

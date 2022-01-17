@@ -14,6 +14,7 @@ import Profile from './User/Profile';
 import { render } from "react-dom";
 import AuthProvider from './Context/AuthContext.js';
 import { UserNameProvider } from './Context/UserNameContext.js';
+import AlertStatProvider from './Context/AlertStatContext';
 import Container from '@mui/material/Container';
 import ReviewDetail from './ReviewDetail.js';
 import EditReview from './EditReview.js';
@@ -23,20 +24,22 @@ const rootElement = document.getElementById("root");
 render(
 	<BrowserRouter>
 		<AuthProvider>
-			<UserNameProvider>
-					<Header />
-					<Container component="main" maxWidth="sm">
-						<Routes>
-							<Route path="/" element={<App />} />
-							<Route path="signup" element={<Signup />} />
-							<Route path="login" element={<Login />} />
-							<Route path="profile" element={<Profile />} />
-							<Route path="detail/:id" element={<ReviewDetail />} />
-							<Route path="edit/:id" element={<EditReview />} />
-							<Route path="/table" element={<BasicTable />} />
-						</Routes>
-					</Container>
-			</UserNameProvider>
+			<AlertStatProvider>
+				<UserNameProvider>
+						<Header />
+						<Container component="main" maxWidth="sm">
+							<Routes>
+								<Route path="/" element={<App />} />
+								<Route path="signup" element={<Signup />} />
+								<Route path="login" element={<Login />} />
+								<Route path="profile" element={<Profile />} />
+								<Route path="detail/:id" element={<ReviewDetail />} />
+								<Route path="edit/:id" element={<EditReview />} />
+								<Route path="/table" element={<BasicTable />} />
+							</Routes>
+						</Container>
+				</UserNameProvider>
+			</AlertStatProvider>
 		</AuthProvider>
 	</BrowserRouter>,
 	rootElement

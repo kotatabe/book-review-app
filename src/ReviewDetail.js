@@ -29,7 +29,7 @@ export default function ReviewDetail () {
 			}
 		})
 			.then(res => {
-				console.log('api return');
+				console.log('GET /books/:id');
 				setReviewData(res.data);
 			})
 			.catch(error => {
@@ -79,17 +79,17 @@ export default function ReviewDetail () {
 					<Button
 						variant="outlined"
 						href={ reviewData.url }
-						// sx={{mr: 1}}
+						sx={{mr: 1}}
 					>
 						本の詳細ページへ
 					</Button>
 					{ reviewData.isMine && (
 						<Button
 							component={RouterLink}
-							state={{
-								reviewData: reviewData,
-								setReviewData: setReviewData
-							}}
+							// state={{
+							// 	reviewData: reviewData,
+							// 	setReviewData: setReviewData
+							// }}
 							to={`/edit/${reviewData.id}`}
 							variant="contained"
 						>

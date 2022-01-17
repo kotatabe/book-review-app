@@ -21,6 +21,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AlertStatContext } from '../Context/AlertStatContext';
+import SimpleAlert from "../Alert"
 
 function Copyright(props) {
   return (
@@ -42,6 +44,7 @@ export default function SignIn() {
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const { setIsAuthenticated, isAuthenticated }  = useContext(AuthContext);
+	const { status, setStatus } = useContext(AlertStatContext);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -49,10 +52,11 @@ export default function SignIn() {
 		.then(res => {
 			localStorage.setItem('auth_token', res.data.token);
 			setIsAuthenticated(true);
-			console.log('api return');
+			setStatus({ ...status, severity: "success", open: true, message: "ログインが完了しました" });
 		})
 			.catch(error => {
 				console.log('...Error', error);
+				setStatus({ ...status, severity: "error", open: true, message: "ログインに失敗しました" });
 			})
 			.finally(
 				setIsAuthenticated(false)
@@ -66,6 +70,7 @@ export default function SignIn() {
 		) : (
 			<ThemeProvider theme={theme}>
 				<Container component="main" maxWidth="xs">
+					<SimpleAlert />
 					<CssBaseline />
 					<Box
 						sx={{

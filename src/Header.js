@@ -23,7 +23,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-
 function Header () {
 	const { isAuthenticated } = useContext(AuthContext);
 	const { userName } = useContext(UserNameContext);

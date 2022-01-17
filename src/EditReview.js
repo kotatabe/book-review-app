@@ -10,44 +10,34 @@ import {
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
-import { AuthContext } from './Context/AuthContext'
-
-import SimpleSnackBar from "./SnackBar";
+import { AuthContext } from './Context/AuthContext';
+import { AlertStatContext } from './Context/AlertStatContext';
+import SimpleAlert from "./Alert";
+// import { useNewReview } from './useNewReview';
+import DeleteButton from "./DeleteButton";
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
 export default function EditReview () {
 	const { id } = useParams();
 	const { auth_token } = useContext(AuthContext);
+	// const { deleteReview } = useNewReview();
 	const [ reviewData, setReviewData ] = useState({
 		title: '',
 		url: '',
 		detail: '',
 		review: '',
 	});
-	const [ status, setStatus ] = useState({
-		open: false,
-		type: "success",
-		message: "成功しました。",
-	});
+	const { status, setStatus } = useContext(AlertStatContext);
 
 	const inputStyle = {
 		style: {
 			fontSize: 12,
 		},
 	}
-
-	const handleClose = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
-
-		setStatus({...status, open: false});
-	};
 
 	useEffect(() => {
 		axios.get( `${url}/books/${id}`, {
@@ -56,7 +46,7 @@ export default function EditReview () {
 			}
 		})
 			.then(res => {
-				console.log('api return');
+				console.log('GET /books/:id');
 				setReviewData(res.data);
 			})
 			.catch(error => {
@@ -87,7 +77,7 @@ export default function EditReview () {
 						detail: res.data.detail,
 						review: res.data.review,
 					});
-					setStatus({ ...status, open: true })
+					setStatus({ ...status, severity: "success", open: true, message: "レビューが保存されました" })
 				})
 				.catch(error => {
 					console.log('...Error', error);
@@ -96,21 +86,19 @@ export default function EditReview () {
 
 	return (
 		<>
+			<SimpleAlert/>
 			<Box sx={{
 				my: 3,
 				p: 4,
 				border: '2px solid #eeeeee',
 				borderRadius: 1,
 			}}>
-				<Typography variant="h5" color="initial" sx={{mt: 0}}>
-					書籍の編集
-				</Typography>
-				<SimpleSnackBar
-					open={status.open}
-					type={status.type}
-					message={status.message}
-					handleClose={handleClose}
-				/>
+				<Box sx={{display: "flex"}}>
+					<Typography variant="h5" color="initial" sx={{mt: 0, flexGrow: 1}}>
+						レビューの編集
+					</Typography>
+					<DeleteButton id={{id}} />
+				</Box>
 				<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
@@ -168,8 +156,6 @@ export default function EditReview () {
 								label="本のレビュー・感想"
 								value={ reviewData.review }
 								multiline
-								minRows={3}
-								maxRows={20}
 								rows={6}
 								onChange={ e => setReviewData( prev => (
 									{
@@ -185,7 +171,7 @@ export default function EditReview () {
 						variant="contained"
 						fullWidth
 						sx={{ mt: 3, mb: 2 }}
-					>
+						>
 						編集を完了する
 					</Button>
 				</Box>
