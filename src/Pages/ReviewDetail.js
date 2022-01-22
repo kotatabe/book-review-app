@@ -12,7 +12,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { AuthContext } from './Context/AuthContext'
+import { AuthContext } from '../Context/AuthContext'
 
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';

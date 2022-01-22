@@ -5,7 +5,7 @@ import {
 import {
 	Link as RouterLink,
 } from "react-router-dom";
-import { useLogout } from './User/Logout'
+import { useProfile } from './Hook/useProfile'
 import { AuthContext } from './Context/AuthContext';
 import { UserNameContext } from './Context/UserNameContext';
 
@@ -27,7 +27,7 @@ function Header () {
 	const { isAuthenticated } = useContext(AuthContext);
 	const { userName } = useContext(UserNameContext);
 	const [ anchorEl, setAnchorEl ] = React.useState(null);
-	const { logout, profile } = useLogout();
+	const { logout, profile } = useProfile();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);

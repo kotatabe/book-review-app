@@ -4,13 +4,13 @@ import {
 import {
 	useNavigate,
 } from "react-router-dom";
-import { AuthContext } from './Context/AuthContext';
+import { AuthContext } from '../Context/AuthContext';
 import axios from 'axios';
-import { AlertStatContext } from './Context/AlertStatContext';
+import { AlertStatContext } from '../Context/AlertStatContext';
 
 const api_url = 'https://api-for-missions-and-railways.herokuapp.com';
 
-export const useNewReview = () => {
+export const useReview = () => {
 	const { auth_token } = useContext(AuthContext);
 	const { status, setStatus } = useContext(AlertStatContext);
 	const navigate = useNavigate();
@@ -38,7 +38,6 @@ export const useNewReview = () => {
 	}
 
 	const deleteReview = ({id}) => {
-		console.log(id);
 		axios.delete( `${api_url}/books/${id}`, {
 			headers: {
 				Authorization: `Bearer ${auth_token}`

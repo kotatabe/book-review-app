@@ -16,17 +16,15 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import { AuthContext } from './Context/AuthContext';
-import NewReviewModal from './PostNewReview';
+import PostNewReview from './Pages/PostNewReview';
 import Typography from '@mui/material/Typography'
 import SimpleAlert from "./Alert";
-import { AlertStatContext } from './Context/AlertStatContext';
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
 export default function App() {
 	const [ bookList, setBookList ] = useState([]);
 	const { auth_token, isAuthenticated } = useContext(AuthContext);
-	const { status, setStatus, handleClose } = useContext(AlertStatContext);
 
 	useEffect(() => {
 		axios.get( `${url}/books?offset=1`, {
@@ -38,13 +36,13 @@ export default function App() {
 				setBookList(res.data);
 			})
 			.catch(error => console.log('...error', error));
-	}, [auth_token]);
+	}, [auth_token, bookList]);
 
 	return (
 		isAuthenticated ? (
 			<>
 				<SimpleAlert />
-				<NewReviewModal />
+				<PostNewReview setBookList={setBookList} />
 				<Box
 					sx={{
 						my: 2,
@@ -55,10 +53,10 @@ export default function App() {
 					}}
 				>
 					<ul className='book-list-container'>
-						{ bookList.map( (info) => 
+						{ bookList.map( (book) => 
 							<Box
 								component="div"
-								key={info.id}
+								key={book.id}
 								sx={{
 									p: 1,
 									width: "100%",
@@ -104,25 +102,20 @@ export default function App() {
 									<Link
 										variant="body1"
 										component={RouterLink}
-										to={`detail/${info.id}`}
+										to={`detail/${book.id}`}
 										sx={{
 											whiteSpace: "nowrap",
 										}}
 									>
-										{info.title}
+										{book.title}
 									</Link>
 									<Typography variant="body2" color="initial">
-										{info.reviewer}さんの感想
+										{book.reviewer}さんの感想
 									</Typography>
-									<Box
-										sx={{
-										}}
-									>
-									</Box>
 								</Box>
 								<Button
 									component={RouterLink}
-									to={`detail/${info.id}`}
+									to={`detail/${book.id}`}
 									variant="outlined"
 									display="inline-block"
 									sx={{

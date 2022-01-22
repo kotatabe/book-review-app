@@ -13,18 +13,16 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { AuthContext } from './Context/AuthContext';
-import { AlertStatContext } from './Context/AlertStatContext';
-import SimpleAlert from "./Alert";
-// import { useNewReview } from './useNewReview';
-import DeleteButton from "./DeleteButton";
+import { AuthContext } from '../Context/AuthContext';
+import { AlertStatContext } from '../Context/AlertStatContext';
+import SimpleAlert from "../Alert";
+import DeleteButton from "../DeleteButton";
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
 export default function EditReview () {
 	const { id } = useParams();
 	const { auth_token } = useContext(AuthContext);
-	// const { deleteReview } = useNewReview();
 	const [ reviewData, setReviewData ] = useState({
 		title: '',
 		url: '',

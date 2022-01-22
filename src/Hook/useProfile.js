@@ -8,7 +8,7 @@ import {
 import { AuthContext } from '../Context/AuthContext';
 import { AlertStatContext } from '../Context/AlertStatContext';
 
-export const useLogout = () => {
+export const useProfile = () => {
 	const navigate = useNavigate();
 	const { setIsAuthenticated } = useContext(AuthContext);
 	const { status, setStatus } = useContext(AlertStatContext);
@@ -16,7 +16,7 @@ export const useLogout = () => {
 	const logout = () => {
 		localStorage.removeItem('auth_token');
 		setIsAuthenticated(false);
-		setStatus({ ...status, severity: "succces", open: true, message: "ログアウトしました" });
+		setStatus({ ...status, severity: "success", open: true, message: "ログアウトしました" });
 		navigate("/login");
 	}
 

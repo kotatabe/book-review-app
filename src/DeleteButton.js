@@ -4,15 +4,13 @@ import {
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNewReview } from './useNewReview';
+import { useReview } from './Hook/useReview';
 
 export default function DeleteButton({id}) {
   const [open, setOpen] = useState(false);
-	const { deleteReview } = useNewReview();
+	const { deleteReview } = useReview();
 
   const handleClickOpen = () => {
     setOpen(true);

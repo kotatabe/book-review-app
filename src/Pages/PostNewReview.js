@@ -3,17 +3,15 @@ import {
 	useState,
 	useContext,
 } from 'react';
-import {
-	useNavigate,
-} from "react-router-dom";
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
-import { useNewReview } from './useNewReview';
-import { AlertStatContext } from './Context/AlertStatContext';
-import SimpleAlert from "./Alert";
+import { AuthContext } from '../Context/AuthContext';
+import { useReview } from '../Hook/useReview';
+import SimpleAlert from "../Alert";
 
 const inputStyle = {
 	style: {
@@ -37,18 +35,20 @@ const style = {
 	py: 2,
 };
 
-export default function NewReviewModal() {
+const url = 'https://api-for-missions-and-railways.herokuapp.com';
+
+export default function PostNewReview(props) {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-	const { new_review } = useNewReview();
+	const { new_review } = useReview();
+	const { auth_token } = useContext(AuthContext);
 	const [ reviewData, setReviewData ] = useState({
 		title: '',
 		url: '',
 		detail: '',
 		review: '',
 	});
-	const navigate = useNavigate();
 
 	const hundelSubmit = (event) => {
 		event.preventDefault();
@@ -58,7 +58,14 @@ export default function NewReviewModal() {
 			detail: reviewData.detail,
 			review: reviewData.review,
 		});
-		// navigate("/", { replace: true });
+		axios.get( `${url}/books?offset=1`, {
+			headers: {
+				Authorization: `Bearer ${auth_token}`
+			}
+		})
+			.then(res => props.setBookList(res.data))
+			.catch(error => console.log('...error', error));
+		handleClose();
 	}
 
 	return (
@@ -77,7 +84,7 @@ export default function NewReviewModal() {
 					<Box component="form" onSubmit={hundelSubmit}>
 						<TextField
 							inputProps={inputStyle}
-							placeholder="タイトル"
+							label="タイトル"
 							value={reviewData.title}
 							onChange={event => setReviewData(prev =>({
 								...prev,
@@ -89,7 +96,7 @@ export default function NewReviewModal() {
 						<TextField
 							inputProps={inputStyle}
 							margin="normal"
-							placeholder="URL"
+							label="URL"
 							value={reviewData.url}
 							onChange={event => setReviewData(prev =>({
 								...prev,
@@ -100,7 +107,7 @@ export default function NewReviewModal() {
 						<TextField
 							inputProps={inputStyle}
 							margin="normal"
-							placeholder="詳細"
+							label="詳細"
 							value={reviewData.detail}
 							onChange={event => setReviewData(prev =>({
 								...prev,
@@ -113,7 +120,7 @@ export default function NewReviewModal() {
 						<TextField
 							inputProps={inputStyle}
 							margin="normal"
-							placeholder="レビューや感想を書く"
+							label="レビューや感想を書く"
 							value={reviewData.review}
 							onChange={event => setReviewData(prev =>({
 								...prev,
