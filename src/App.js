@@ -8,7 +8,7 @@ import {
 	Navigate,
 	Link as RouterLink,
 } from "react-router-dom";
-import './assets/App.scss';
+import './assets/App.css';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
