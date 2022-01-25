@@ -11,6 +11,7 @@ import { UserNameContext } from './Context/UserNameContext';
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import GlobalStyles from '@mui/material/GlobalStyles';
@@ -21,6 +22,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
+
 import Typography from '@mui/material/Typography';
 
 function Header () {
@@ -66,12 +68,20 @@ function Header () {
 					</Typography>
 					{isAuthenticated ? (
 						<>
-							<Typography
+							{/* <Typography
 								color="initial"
-								sx={{ minWidth: 100, my: 1, mx: 1.5 }}
+								fontSize="small"
+								sx={{
+									minWidth: 100,
+									p: 1,
+									my: 1,
+									mx: 1.5,
+									border: "2px solid #000",
+									display: "flex",
+								}}
 							>
 								ユーザー名：{ userName }
-							</Typography>
+							</Typography> */}
 							<IconButton
 								size="large"
 								aria-label="account of current user"
@@ -81,6 +91,9 @@ function Header () {
 								color="inherit"
 							>
 								<AccountCircle />
+								<Typography color="initial" sx={{mx: 1}}>
+									{ userName }
+								</Typography>
 							</IconButton>
 							<Menu
 								id="menu-appbar"
@@ -113,8 +126,18 @@ function Header () {
 						<Link
 							component={RouterLink}
 							to="/login"
+							underline="none"
 						>
-							ログイン
+							<Button variant="outlined"
+								sx={{
+									color: "#000",
+									borderRadius: 0,
+									border: "2px solid #000",
+									// bgcolor: "#fff",
+								}}
+							>
+								ログイン
+							</Button>
 						</Link>
 					)}
 				</Toolbar>
