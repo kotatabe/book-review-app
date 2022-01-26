@@ -1,6 +1,6 @@
 # 書籍レビューアプリ
 
-![book_review_app](https://user-images.githubusercontent.com/61307827/151124308-003602d8-d9d4-48b8-96ae-abd7e6b58b76.gif)
+![BookReviewApp_React](https://user-images.githubusercontent.com/61307827/151128625-fdb9421a-d166-4d61-9544-d156255c91b6.gif)
 
 ## 使用技術
 - React
