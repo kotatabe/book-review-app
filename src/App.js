@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
 	useEffect,
-	useState,
 	useContext
 } from 'react';
 import {
@@ -9,43 +8,36 @@ import {
 	Link as RouterLink,
 } from "react-router-dom";
 import './assets/App.css';
-import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography'
 
 import { AuthContext } from './Context/AuthContext';
+import { BookListContext } from './Context/BookListContext';
+import { useReviewList } from './Hook/useReview';
 import PostNewReview from './Pages/PostNewReview';
-import Typography from '@mui/material/Typography'
 import SimpleAlert from "./Alert";
 import theme from './Theme/theme';
-const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
 export default function App() {
-	const [ bookList, setBookList ] = useState([]);
+	const { bookList } = useContext(BookListContext);
 	const { auth_token, isAuthenticated } = useContext(AuthContext);
+	const { getReviewList } = useReviewList();
 
-	useEffect(() => {
-		axios.get( `${url}/books?offset=1`, {
-			headers: {
-				Authorization: `Bearer ${auth_token}`
-			}
-		})
-			.then(res => {
-				setBookList(res.data);
-			})
-			.catch(error => console.log('...error', error));
-	}, [auth_token, bookList]);
+	useEffect( () => {
+		getReviewList();
+	}, [auth_token]);
 
 	return (
 		isAuthenticated ? (
 			<>
 				<ThemeProvider theme={theme}>
 					<SimpleAlert />
-					<PostNewReview setBookList={setBookList} />
+					<PostNewReview />
 					<Box
 						sx={{
 							my: 2,

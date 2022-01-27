@@ -1,21 +1,22 @@
 import * as React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './index.scss';
+import { render } from "react-dom";
 import {
   BrowserRouter,
   Routes,
   Route
 } from "react-router-dom";
+import Container from '@mui/material/Container';
+
 import Header from './Header.js'
 import App from './App';
 import Signup from './User/Signup';
 import Login from './User/Login';
 import Profile from './User/Profile';
-import { render } from "react-dom";
-import AuthProvider from './Context/AuthContext.js';
-import { UserNameProvider } from './Context/UserNameContext.js';
 import AlertStatProvider from './Context/AlertStatContext';
-import Container from '@mui/material/Container';
+import AuthProvider from './Context/AuthContext.js';
+import BookListProvider from './Context/BookListContext.js';
+import UserNameProvider from './Context/UserNameContext.js';
 import ReviewDetail from './Pages/ReviewDetail.js';
 import EditReview from './Pages/EditReview.js';
 
@@ -25,6 +26,7 @@ render(
 		<AuthProvider>
 			<AlertStatProvider>
 				<UserNameProvider>
+					<BookListProvider>
 						<Header />
 						<Container component="main" maxWidth="sm">
 							<Routes>
@@ -36,6 +38,7 @@ render(
 								<Route path="edit/:id" element={<EditReview />} />
 							</Routes>
 						</Container>
+					</BookListProvider>
 				</UserNameProvider>
 			</AlertStatProvider>
 		</AuthProvider>

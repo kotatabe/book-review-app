@@ -14,7 +14,7 @@ export const UserNameContext = createContext({
 	setUserName: () => {}
 });
 
-export const UserNameProvider = (props) => {
+const UserNameProvider = (props) => {
 	const [ userName, setUserName ] = useState("");
 	const { auth_token } = useContext(AuthContext);
 
@@ -29,9 +29,6 @@ export const UserNameProvider = (props) => {
 				setUserName(res.data.name);
 			})
 			.catch(error => console.log('...error', error));
-			// .finally(
-			// 	// localStorage.removeItem('auth_token')
-			// );
 	}, [auth_token]);
 
 	return (
@@ -40,3 +37,5 @@ export const UserNameProvider = (props) => {
 		</UserNameContext.Provider>
 	);
 }
+
+export default UserNameProvider;

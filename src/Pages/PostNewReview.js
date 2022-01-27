@@ -1,16 +1,13 @@
 import * as React from 'react';
 import {
 	useState,
-	useContext,
 } from 'react';
-import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
-import { AuthContext } from '../Context/AuthContext';
-import { useReview } from '../Hook/useReview';
+import { useNewReview, useReviewList } from '../Hook/useReview';
 import SimpleAlert from "../Alert";
 
 const inputStyle = {
@@ -35,14 +32,12 @@ const style = {
 	py: 2,
 };
 
-const url = 'https://api-for-missions-and-railways.herokuapp.com';
-
-export default function PostNewReview(props) {
+export default function PostNewReview() {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-	const { new_review } = useReview();
-	const { auth_token } = useContext(AuthContext);
+	const { postNewReview } = useNewReview();
+	const { getReviewList } = useReviewList();
 	const [ reviewData, setReviewData ] = useState({
 		title: '',
 		url: '',
@@ -52,19 +47,13 @@ export default function PostNewReview(props) {
 
 	const hundelSubmit = (event) => {
 		event.preventDefault();
-		new_review({
+		postNewReview({
 			title: reviewData.title,
 			url: reviewData.url,
 			detail: reviewData.detail,
 			review: reviewData.review,
 		});
-		axios.get( `${url}/books?offset=1`, {
-			headers: {
-				Authorization: `Bearer ${auth_token}`
-			}
-		})
-			.then(res => props.setBookList(res.data))
-			.catch(error => console.log('...error', error));
+		getReviewList();
 		handleClose();
 	}
 

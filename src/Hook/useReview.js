@@ -1,21 +1,37 @@
 import {
 	useContext,
 } from 'react';
-import {
-	useNavigate,
-} from "react-router-dom";
-import { AuthContext } from '../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../Context/AuthContext';
 import { AlertStatContext } from '../Context/AlertStatContext';
+import { BookListContext } from '../Context/BookListContext';
 
 const api_url = 'https://api-for-missions-and-railways.herokuapp.com';
 
-export const useReview = () => {
+export const useReviewList = () => {
+	const { auth_token } = useContext(AuthContext);
+	const { setBookList } = useContext(BookListContext);
+
+	const getReviewList = () => {
+		axios.get( `${api_url}/books?offset=1`, {
+			headers: {
+				Authorization: `Bearer ${auth_token}`
+			}
+		})
+			.then(res => {
+				setBookList(res.data);
+			})
+			.catch(error => console.log('...error', error));
+	}
+	return { getReviewList };
+}
+
+export const useNewReview = () => {
 	const { auth_token } = useContext(AuthContext);
 	const { status, setStatus } = useContext(AlertStatContext);
-	const navigate = useNavigate();
 
-	const new_review = ({title, url, detail, review}) => {
+	const postNewReview = ({title, url, detail, review}) => {
 		axios.post( `${api_url}/books`, { 
 			title,
 			url,
@@ -36,6 +52,13 @@ export const useReview = () => {
 				setStatus({ ...status, severity: "error", open: true, message: "レビューの作成に失敗しました" });
 			});
 	}
+	return { postNewReview };
+}
+
+export const useDeleteReview = () => {
+	const { auth_token } = useContext(AuthContext);
+	const { status, setStatus } = useContext(AlertStatContext);
+	const navigate = useNavigate();
 
 	const deleteReview = ({id}) => {
 		axios.delete( `${api_url}/books/${id}`, {
@@ -52,6 +75,5 @@ export const useReview = () => {
 				console.log("Error", error);
 			});
 	}
-
-	return { new_review, deleteReview };
+	return { deleteReview };
 }
