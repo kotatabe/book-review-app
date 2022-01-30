@@ -44,11 +44,10 @@ function Header () {
 			<CssBaseline />
 			<AppBar
 				position="static"
-				color="default"
 				elevation={0}
 				sx={{
 					borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-					bgcolor: "#4ea6cc",
+					bgcolor: "primary.main",
 				}}
 			>
 				<Toolbar sx={{ flexWrap: 'wrap' }}>

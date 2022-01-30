@@ -13,15 +13,13 @@ import Button from '@mui/material/Button';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from '@mui/material/Link';
-import { ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography'
 
 import { AuthContext } from './Context/AuthContext';
 import { BookListContext } from './Context/BookListContext';
 import { useReviewList } from './Hook/useReview';
-import PostNewReview from './Pages/PostNewReview';
+import NewReviewButton from './Pages/NewReviewButton';
 import SimpleAlert from "./Alert";
-import theme from './Theme/theme';
 
 export default function App() {
 	const { bookList } = useContext(BookListContext);
@@ -35,15 +33,14 @@ export default function App() {
 	return (
 		isAuthenticated ? (
 			<>
-				<ThemeProvider theme={theme}>
 					<SimpleAlert />
-					<PostNewReview />
+					<NewReviewButton />
 					<Box
 						sx={{
 							my: 2,
 							border: 1,
-							bgcolor: "grey.50",
-							borderColor: "grey.300",
+							bgcolor: "background.main",
+							borderColor: "border.main",
 							borderRadius: 1,
 						}}
 					>
@@ -57,7 +54,8 @@ export default function App() {
 										width: "100%",
 										height: 100,
 										bgcolor: 'inherit',
-										borderBottom: "1px solid #dcdcdc",
+										borderBottom: 1,
+										borderColor: "border.main",
 										display: "flex",
 									}}
 								>
@@ -66,7 +64,7 @@ export default function App() {
 											borderRadius: "50%",
 											width: 60,
 											height: 60,
-											bgcolor: "#e6ee9c",
+											bgcolor: "secondary.main",
 										}}
 									>
 										<ListItemIcon
@@ -128,7 +126,6 @@ export default function App() {
 					<RouterLink to="/">Home</RouterLink> |{" "}
 					<RouterLink to="signup">Sign up</RouterLink> |{" "}
 					<RouterLink to="/login">login</RouterLink>
-				</ThemeProvider>
 			</>
 		) : (
 			<Navigate to="/login" replace />

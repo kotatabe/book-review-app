@@ -168,7 +168,7 @@ export default function EditReview () {
 						type="submit"
 						variant="contained"
 						fullWidth
-						sx={{ mt: 3, mb: 2 }}
+						sx={{ mt: 3, mb: 2, bgcolor: "primary.light" }}
 						>
 						編集を完了する
 					</Button>

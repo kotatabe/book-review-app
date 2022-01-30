@@ -7,7 +7,9 @@ import {
   Route
 } from "react-router-dom";
 import Container from '@mui/material/Container';
+import { ThemeProvider } from '@mui/material/styles';
 
+import theme from './Theme/theme';
 import Header from './Header.js'
 import App from './App';
 import Signup from './User/Signup';
@@ -23,25 +25,27 @@ import EditReview from './Pages/EditReview.js';
 const rootElement = document.getElementById("root");
 render(
 	<BrowserRouter>
-		<AuthProvider>
-			<AlertStatProvider>
-				<UserNameProvider>
-					<BookListProvider>
-						<Header />
-						<Container component="main" maxWidth="sm">
-							<Routes>
-								<Route path="/" element={<App />} />
-								<Route path="signup" element={<Signup />} />
-								<Route path="login" element={<Login />} />
-								<Route path="profile" element={<Profile />} />
-								<Route path="detail/:id" element={<ReviewDetail />} />
-								<Route path="edit/:id" element={<EditReview />} />
-							</Routes>
-						</Container>
-					</BookListProvider>
-				</UserNameProvider>
-			</AlertStatProvider>
-		</AuthProvider>
+		<ThemeProvider theme={theme}>
+			<AuthProvider>
+				<AlertStatProvider>
+					<UserNameProvider>
+						<BookListProvider>
+							<Header />
+							<Container component="main" maxWidth="sm">
+								<Routes>
+									<Route path="/" element={<App />} />
+									<Route path="signup" element={<Signup />} />
+									<Route path="login" element={<Login />} />
+									<Route path="profile" element={<Profile />} />
+									<Route path="detail/:id" element={<ReviewDetail />} />
+									<Route path="edit/:id" element={<EditReview />} />
+								</Routes>
+							</Container>
+						</BookListProvider>
+					</UserNameProvider>
+				</AlertStatProvider>
+			</AuthProvider>
+		</ThemeProvider>
 	</BrowserRouter>,
 	rootElement
 );

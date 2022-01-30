@@ -32,7 +32,7 @@ const style = {
 	py: 2,
 };
 
-export default function PostNewReview() {
+export default function NewReviewButton() {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -60,7 +60,15 @@ export default function PostNewReview() {
 	return (
 		<>
 			<SimpleAlert />
-			<Button variant="contained" onClick={handleOpen} >レビューの新規作成</Button>
+			<Button
+				variant="contained"
+				onClick={handleOpen}
+				sx={{
+					bgcolor: "primary.light"
+				}}
+			>
+				レビューの新規作成
+			</Button>
 			<Modal
 				open={open}
 				onClose={handleClose}

@@ -44,7 +44,7 @@ export default function ReviewDetail () {
 					width: 600,
 					border: 1,
 					borderRadius: 2,
-					borderColor: 'grey.400',
+					borderColor: 'border.main',
 					p: 4,
 					my: 2,
 				}}
@@ -69,7 +69,7 @@ export default function ReviewDetail () {
 						p: 2,
 						mb: 2,
 						border: 1,
-						borderColor: "grey.400",
+						borderColor: "border.main",
 						borderRadius: 1,
 						minHeight: 80,
 					}}>
@@ -86,12 +86,9 @@ export default function ReviewDetail () {
 					{ reviewData.isMine && (
 						<Button
 							component={RouterLink}
-							// state={{
-							// 	reviewData: reviewData,
-							// 	setReviewData: setReviewData
-							// }}
 							to={`/edit/${reviewData.id}`}
 							variant="contained"
+							sx={{ bgcolor: "primary.light" }}
 						>
 							レビューを編集する
 						</Button>
