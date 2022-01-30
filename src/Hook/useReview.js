@@ -14,7 +14,7 @@ export const useReviewList = () => {
 	const { setBookList } = useContext(BookListContext);
 
 	const getReviewList = () => {
-		axios.get( `${api_url}/books?offset=1`, {
+		axios.get( `${api_url}/books?offset=0`, {
 			headers: {
 				Authorization: `Bearer ${auth_token}`
 			}
