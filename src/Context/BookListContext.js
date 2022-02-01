@@ -1,21 +1,21 @@
 import {
-	createContext,
-	useState,
+  createContext,
+  useState,
 } from 'react';
 
 export const BookListContext = createContext({
-	bookList: [],
-	setBookList: () => {},
+  bookList: [],
+  setBookList: () => { },
 });
 
-const BookListProvider = (props) => {
-	const [ bookList, setBookList ] = useState([]);
+function BookListProvider({ children }) {
+  const [bookList, setBookList] = useState([]);
 
-	return (
-		<BookListContext.Provider value={{bookList, setBookList}}>
-			{ props.children }
-		</BookListContext.Provider>
-	);
+  return (
+    <BookListContext.Provider value={{ bookList, setBookList }}>
+      {children}
+    </BookListContext.Provider>
+  );
 }
 
 export default BookListProvider;

@@ -2,8 +2,6 @@ import { useState, useContext } from 'react'
 import {
   Link as RouterLink
 } from 'react-router-dom';
-import { AuthContext } from '../Context/AuthContext';
-import { UserNameContext } from '../Context/UserNameContext';
 import axios from 'axios';
 
 import * as React from 'react';
@@ -18,16 +16,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import UserNameContext from '../Context/UserNameContext';
+import AuthContext from '../Context/AuthContext';
 
 function Copyright(props) {
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
+      .
     </Typography>
   );
 }
@@ -36,26 +37,26 @@ const theme = createTheme();
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
 export default function SignUp() {
-	const [ email, setEmail ] = useState('');
-	const [ password, setPassword ] = useState('');
-	const { setIsAuthenticated } = useContext(AuthContext);
-	const { userName, setUserName } = useContext(UserNameContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const { userName, setUserName } = useContext(UserNameContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-		console.log('handleSubmit!');
-		axios.post( `${url}/users`, { userName, email, password } )
-			.then(res => {
-				localStorage.setItem('auth_token', res.data.token);
-				setIsAuthenticated(true);
-				console.log('api return');
-			})
-			.catch(error => {
-				console.log('...Error', error);
-			})
-			.finally(
-				setIsAuthenticated(false)
-			);
+    console.log('handleSubmit!');
+    axios.post(`${url}/users`, { userName, email, password })
+      .then(res => {
+        localStorage.setItem('authToken', res.data.token);
+        setIsAuthenticated(true);
+        console.log('api return');
+      })
+      .catch(error => {
+        console.log('...Error', error);
+      })
+      .finally(
+        setIsAuthenticated(false)
+      );
   };
 
   return (
@@ -87,8 +88,8 @@ export default function SignUp() {
                   id="firstName"
                   label="ニックネーム"
                   autoFocus
-									value={userName}
-									onChange={event => setUserName(event.target.value)}
+                  value={userName}
+                  onChange={event => setUserName(event.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,8 +100,8 @@ export default function SignUp() {
                   label="メールアドレス"
                   name="email"
                   autoComplete="email"
-									value={email}
-									onChange={event => setEmail(event.target.value)}
+                  value={email}
+                  onChange={event => setEmail(event.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -112,8 +113,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-									value={password}
-									onChange={event => setPassword(event.target.value)}
+                  value={password}
+                  onChange={event => setPassword(event.target.value)}
                 />
               </Grid>
             </Grid>
@@ -128,10 +129,10 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link
-									conponent={RouterLink}
-									to="/login"
-									variant="body2"
-								>
+                  conponent={RouterLink}
+                  to="/login"
+                  variant="body2"
+                >
                   Already have an account? Sign in
                 </Link>
               </Grid>
