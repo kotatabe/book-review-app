@@ -46,7 +46,7 @@ export default function ReviewDetail() {
         my: 2,
       }}
     >
-      <Typography variant="h6" color="initial" sx={{ mb: 1 }}>
+      <Typography variant="h6" color="initial" sx={{ mb: 3 }}>
         {reviewData.title}
       </Typography>
       <Typography
@@ -55,7 +55,7 @@ export default function ReviewDetail() {
         sx={{
           display: "block",
           mb: 1,
-          ml: 1,
+          ml: 0.5,
         }}
       >
         <AccountCircle sx={{ mr: 1, size: "small" }} />

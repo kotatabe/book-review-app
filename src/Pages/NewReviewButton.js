@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useNewReview, useReviewList } from '../Hook/useReview';
 import SimpleAlert from "../Alert";
 
@@ -38,7 +39,7 @@ export default function NewReviewButton() {
 	const handleClose = () => setOpen(false);
 	const { postNewReview } = useNewReview();
 	const { getReviewList } = useReviewList();
-	const [ reviewData, setReviewData ] = useState({
+	const [reviewData, setReviewData] = useState({
 		title: '',
 		url: '',
 		detail: '',
@@ -64,18 +65,23 @@ export default function NewReviewButton() {
 				variant="contained"
 				onClick={handleOpen}
 				sx={{
-					bgcolor: "primary.light"
+					bgcolor: "primary.light",
+					fontWeight: "bold",
+					px: 2,
 				}}
 			>
+				<AddCircleOutlineIcon
+					fontSize="small"
+					sx={{ mr: 0.5 }}
+				/>
 				レビューの新規作成
 			</Button>
 			<Modal
 				open={open}
 				onClose={handleClose}
-				aria-labelledby="modal-modal-title"
 			>
 				<Box sx={style}>
-					<Typography id="modal-modal-title" variant="h6" component="h2" sx={{mb: 2}}>
+					<Typography variant="h6" component="h2" sx={{ mb: 2 }}>
 						レビューの投稿
 					</Typography>
 					<Box component="form" onSubmit={hundelSubmit}>
@@ -83,7 +89,7 @@ export default function NewReviewButton() {
 							inputProps={inputStyle}
 							label="タイトル"
 							value={reviewData.title}
-							onChange={event => setReviewData(prev =>({
+							onChange={event => setReviewData(prev => ({
 								...prev,
 								title: event.target.value,
 							}))}
@@ -95,7 +101,7 @@ export default function NewReviewButton() {
 							margin="normal"
 							label="URL"
 							value={reviewData.url}
-							onChange={event => setReviewData(prev =>({
+							onChange={event => setReviewData(prev => ({
 								...prev,
 								url: event.target.value,
 							}))}
@@ -106,7 +112,7 @@ export default function NewReviewButton() {
 							margin="normal"
 							label="詳細"
 							value={reviewData.detail}
-							onChange={event => setReviewData(prev =>({
+							onChange={event => setReviewData(prev => ({
 								...prev,
 								detail: event.target.value,
 							}))}
@@ -119,7 +125,7 @@ export default function NewReviewButton() {
 							margin="normal"
 							label="レビューや感想を書く"
 							value={reviewData.review}
-							onChange={event => setReviewData(prev =>({
+							onChange={event => setReviewData(prev => ({
 								...prev,
 								review: event.target.value,
 							}))}
@@ -131,21 +137,21 @@ export default function NewReviewButton() {
 							<Button
 								variant="outlined"
 								onClick={handleClose}
-								sx={{ my: 2, mr: 2,}}
-								>
+								sx={{ my: 2, mr: 2, }}
+							>
 								閉じる
 							</Button>
 							<Button
 								type="submit"
 								variant="contained"
-								sx={{ my: 2,}}
+								sx={{ my: 2, }}
 							>
 								投稿する
 							</Button>
 						</Box>
 					</Box>
-        </Box>
-      </Modal>
-    </>
-  );
+				</Box>
+			</Modal>
+		</>
+	);
 }
