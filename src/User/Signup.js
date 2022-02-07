@@ -16,8 +16,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import UserNameContext from '../Context/UserNameContext';
-import AuthContext from '../Context/AuthContext';
+import { UserNameContext } from '../Context/UserNameContext';
+import { AuthContext } from '../Context/AuthContext';
 
 function Copyright(props) {
   return (
@@ -129,11 +129,11 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link
-                  conponent={RouterLink}
+                  component={RouterLink}
                   to="/login"
                   variant="body2"
                 >
-                  Already have an account? Sign in
+                  ログインはこちら
                 </Link>
               </Grid>
             </Grid>

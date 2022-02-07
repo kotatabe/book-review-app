@@ -2,6 +2,7 @@
 import { useState, useContext } from 'react';
 import {
   Navigate,
+  Link as RouterLink,
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -126,18 +127,10 @@ export default function SignIn() {
               >
                 Sign In
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
+              <Grid container justifyContent="flex-end">
                 <Grid item>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <Link href="#" variant="body2">
-                    {/* eslint-disable-next-line react/no-unescaped-entities */}
-                    Don't have an account? Sign Up
+                  <Link component={RouterLink} to="/signup" variant="body2">
+                    はじめての方はこちら
                   </Link>
                 </Grid>
               </Grid>

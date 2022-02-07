@@ -18,6 +18,11 @@ const theme = createTheme({
   typography: {
     fontFamily: ['ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ W3', 'メイリオ', 'MS Pゴシック', 'sans-serif'].join(','),
   },
+  breakpoints: {
+    values: {
+      sm: 700,
+    },
+  },
 });
 
 export default theme;
