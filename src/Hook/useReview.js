@@ -13,7 +13,8 @@ export const useReviewList = () => {
   const { authToken } = useContext(AuthContext);
   const { setBookList } = useContext(BookListContext);
 
-  const getReviewList = () => {
+  const getReviewList = (setIsLoading) => {
+    setIsLoading(true);
     axios.get(`${apiUrl}/books?offset=0`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -22,7 +23,12 @@ export const useReviewList = () => {
       .then((res) => {
         setBookList(res.data);
       })
-      .catch((error) => console.log('...error', error));
+      .catch((error) => {
+        console.log('...error', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return { getReviewList };

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   useEffect,
   useContext,
+  useState,
 } from 'react';
 import {
   Navigate,
@@ -14,6 +15,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import Skeleton from '@mui/material/Skeleton';
 
 import { AuthContext } from './Context/AuthContext';
 import { BookListContext } from './Context/BookListContext';
@@ -25,14 +27,21 @@ export default function App() {
   const { bookList } = useContext(BookListContext);
   const { authToken, isAuthenticated } = useContext(AuthContext);
   const { getReviewList } = useReviewList();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getReviewList();
+    getReviewList(setIsLoading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authToken]);
 
   return (
-    isAuthenticated ? (
+    // eslint-disable-next-line no-nested-ternary
+    !isAuthenticated ? (
+      <Navigate to="/login" replace />
+    ) : (
+      // isLoading ? (
+      //   <Skeleton width="100%" height={100} />
+      // ) : (
       <>
         <SimpleAlert />
         <NewReviewButton />
@@ -93,20 +102,29 @@ export default function App() {
                     textOverflow: "ellipsis",
                   }}
                 >
-                  <Link
-                    variant="body1"
-                    component={RouterLink}
-                    to={`detail/${book.id}`}
-                    sx={{
-                      whiteSpace: "nowrap",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {book.title}
-                  </Link>
-                  <Typography variant="body2" color="initial">
-                    {book.reviewer}さんの感想
-                  </Typography>
+                  {isLoading ? (
+                    <>
+                      <Skeleton width="80%" />
+                      <Skeleton width="40%" />
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        variant="body1"
+                        component={RouterLink}
+                        to={`detail/${book.id}`}
+                        sx={{
+                          whiteSpace: "nowrap",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {book.title}
+                      </Link>
+                      <Typography variant="body2" color="initial">
+                        {book.reviewer}さんの感想
+                      </Typography>
+                    </>
+                  )}
                 </Box>
                 <Button
                   component={RouterLink}
@@ -123,13 +141,12 @@ export default function App() {
               </Box>
             )}
           </ul>
-        </Box>
-        <RouterLink to="/">Home</RouterLink> |{" "}
-        <RouterLink to="signup">Sign up</RouterLink> |{" "}
-        <RouterLink to="/login">login</RouterLink>
+        </Box >
+        <RouterLink to="/">Home</RouterLink> | {" "}
+        < RouterLink to="signup" > Sign up</RouterLink > | {" "}
+        < RouterLink to="/login" > login</RouterLink >
       </>
-    ) : (
-      <Navigate to="/login" replace />
+      // )
     )
   );
 }
