@@ -1,6 +1,4 @@
-import {
-  useContext,
-} from 'react';
+import { useContext } from 'react';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { AlertStatContext } from './Context/AlertStatContext';

@@ -56,22 +56,22 @@ module.exports = {
 				next: 'return',
 			},
 		],
-		// 'import/extensions': [
-		// 	'error',
-		// 	'ignorePackages',
-		// 	{
-		// 		js: 'never',
-		// 		jsx: 'never',
-		// 		ts: 'never',
-		// 		tsx: 'never',
-		// 	},
-		// ],
-		// 'react/jsx-filename-extension': [
-		// 	'error',
-		// 	{
-		// 		extensions: ['.jsx', '.tsx', '.js'],
-		// 	},
-		// ],
+		'import/extensions': [
+			'error',
+			'ignorePackages',
+			{
+				js: 'never',
+				jsx: 'never',
+				ts: 'never',
+				tsx: 'never',
+			},
+		],
+		'react/jsx-filename-extension': [
+			'error',
+			{
+				extensions: ['.jsx', '.tsx', '.js'],
+			},
+		],
 		'react/jsx-props-no-spreading': [
 			'error',
 			{
@@ -83,15 +83,18 @@ module.exports = {
 		'react/react-in-jsx-scope': 'off',
 		'react/prop-types': ['off'],
 		'react/jsx-no-constructed-context-values': 'off',
+		'@typescript-eslint/restrict-template-expressions': ['off'],
+		'react/jsx-no-bind': 'off',
+		'react/jsx-props-no-spreading': 'off',
 	},
-	// overrides: [
-	// 	{
-	// 		'files': ['*.tsx'],
-	// 		'rules': {
-	// 			'react/prop-types': 'off',
-	// 		},
-	// 	},
-	// ],
+	overrides: [
+		{
+			'files': ['*.tsx'],
+			'rules': {
+				'react/prop-types': 'off',
+			},
+		},
+	],
 	settings: {
 		'import/resolver': {
 			node: {

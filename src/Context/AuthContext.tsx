@@ -1,12 +1,15 @@
 import { createContext, useEffect, useState } from 'react';
+import { Props } from './PropsInterface';
 
-export const AuthContext = createContext({
-  isAuthenticated: false,
-  setIsAuthenticated: () => { },
-  authToken: '',
-});
+interface AuthContextInterface {
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  authToken: string | null;
+}
 
-function AuthProvider({ children }) {
+export const AuthContext = createContext({} as AuthContextInterface);
+
+function AuthProvider({ children }: Props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const authToken = localStorage.getItem('authToken');
 
@@ -17,7 +20,8 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, authToken }}>
+      value={{ isAuthenticated, setIsAuthenticated, authToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

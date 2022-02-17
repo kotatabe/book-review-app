@@ -13,16 +13,17 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { AuthContext } from '../Context/AuthContext';
+import { Book } from './interface';
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
 export default function ReviewDetail() {
   const { authToken } = useContext(AuthContext);
   const { id } = useParams();
-  const [reviewData, setReviewData] = useState({});
+  const [reviewData, setReviewData] = useState<Book | null>(null);
 
   useEffect(() => {
-    axios.get(`${url}/books/${id}`, {
+    axios.get<Book>(`${url}/books/${id}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -47,7 +48,7 @@ export default function ReviewDetail() {
       }}
     >
       <Typography variant="h6" color="initial" sx={{ mb: 3 }}>
-        {reviewData.title}
+        {reviewData?.title}
       </Typography>
       <Typography
         variant="caption"
@@ -59,7 +60,7 @@ export default function ReviewDetail() {
         }}
       >
         <AccountCircle sx={{ mr: 1, size: "small" }} />
-        {reviewData.reviewer} さんの感想
+        {reviewData?.reviewer} さんの感想
       </Typography>
       <Typography variant="body2" color="initial"
         sx={{
@@ -70,20 +71,20 @@ export default function ReviewDetail() {
           borderRadius: 1,
           minHeight: 80,
         }}>
-        {reviewData.review}
+        {reviewData?.review}
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           variant="outlined"
-          href={reviewData.url}
+          href={reviewData?.url}
           sx={{ mr: 1 }}
         >
           本の詳細ページへ
         </Button>
-        {reviewData.isMine && (
+        {reviewData?.isMine && (
           <Button
             component={RouterLink}
-            to={`/edit/${reviewData.id}`}
+            to={`/edit/${reviewData?.id}`}
             variant="contained"
             sx={{ bgcolor: "primary.light" }}
           >

@@ -1,7 +1,5 @@
-import { useState, useContext } from 'react'
-import {
-  Link as RouterLink
-} from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
 
 import * as React from 'react';
@@ -19,16 +17,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { UserNameContext } from '../Context/UserNameContext';
 import { AuthContext } from '../Context/AuthContext';
 
-function Copyright(props) {
+function Copyright(props: any) {
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         Your Website
       </Link>{' '}
-      {new Date().getFullYear()}
-      .
+      {new Date().getFullYear()}.
     </Typography>
   );
 }
@@ -42,21 +43,22 @@ export default function SignUp() {
   const { setIsAuthenticated } = useContext(AuthContext);
   const { userName, setUserName } = useContext(UserNameContext);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('handleSubmit!');
-    axios.post(`${url}/users`, { userName, email, password })
-      .then(res => {
+    axios
+      .post<{ token: string }>(`${url}/users`, { userName, email, password })
+      .then((res) => {
         localStorage.setItem('authToken', res.data.token);
         setIsAuthenticated(true);
         console.log('api return');
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('...Error', error);
       })
-      .finally(
-        setIsAuthenticated(false)
-      );
+      .finally(() => {
+        setIsAuthenticated(false);
+      });
   };
 
   return (
@@ -77,7 +79,12 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -89,7 +96,7 @@ export default function SignUp() {
                   label="ニックネーム"
                   autoFocus
                   value={userName}
-                  onChange={event => setUserName(event.target.value)}
+                  onChange={(event) => setUserName(event.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -101,7 +108,7 @@ export default function SignUp() {
                   name="email"
                   autoComplete="email"
                   value={email}
-                  onChange={event => setEmail(event.target.value)}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -114,7 +121,7 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                   value={password}
-                  onChange={event => setPassword(event.target.value)}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
               </Grid>
             </Grid>
@@ -128,11 +135,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link
-                  component={RouterLink}
-                  to="/login"
-                  variant="body2"
-                >
+                <Link component={RouterLink} to="/login" variant="body2">
                   ログインはこちら
                 </Link>
               </Grid>

@@ -1,12 +1,6 @@
-import {
-  useParams,
-} from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import {
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -17,6 +11,7 @@ import { AuthContext } from '../Context/AuthContext';
 import { AlertStatContext } from '../Context/AlertStatContext';
 import SimpleAlert from '../Alert';
 import DeleteButton from '../DeleteButton';
+import { Book, ReviewInterface } from './interface';
 
 const url = 'https://api-for-missions-and-railways.herokuapp.com';
 
@@ -35,40 +30,42 @@ export default function EditReview() {
     style: {
       fontSize: 12,
     },
-  }
+  };
 
   useEffect(() => {
-    axios.get(`${url}/books/${id}`, {
-      headers: {
-        Authorization: `Bearer ${authToken}`
-      }
-    })
-      .then(res => {
+    axios
+      .get<Book>(`${url}/books/${id}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+      .then((res) => {
         console.log('GET /books/:id');
         setReviewData(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('...Error', error);
       });
   }, [authToken, id]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(reviewData);
-    axios.put(
-      `${url}/books/${id}`,
-      {
-        title: reviewData.title,
-        url: reviewData.url,
-        detail: reviewData.detail,
-        review: reviewData.review,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
+    axios
+      .put<ReviewInterface>(
+        `${url}/books/${id}`,
+        {
+          title: reviewData.title,
+          url: reviewData.url,
+          detail: reviewData.detail,
+          review: reviewData.review,
         },
-      },
-    )
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        },
+      )
       .then((res) => {
         setReviewData({
           title: res.data.title,
@@ -76,12 +73,17 @@ export default function EditReview() {
           detail: res.data.detail,
           review: res.data.review,
         });
-        setStatus({ ...status, severity: 'success', open: true, message: 'レビューが保存されました' })
+        setStatus({
+          ...status,
+          severity: 'success',
+          open: true,
+          message: 'レビューが保存されました',
+        });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('...Error', error);
       });
-  }
+  };
 
   return (
     <>
@@ -94,11 +96,11 @@ export default function EditReview() {
           borderRadius: 1,
         }}
       >
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: 'flex' }}>
           <Typography variant="h5" color="initial" sx={{ mt: 0, flexGrow: 1 }}>
             レビューの編集
           </Typography>
-          <DeleteButton id={{ id }} />
+          <DeleteButton id={id} />
         </Box>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -109,12 +111,12 @@ export default function EditReview() {
                 label="タイトル"
                 fullWidth
                 value={reviewData.title}
-                onChange={e => setReviewData(prev => (
-                  {
+                onChange={(e) =>
+                  setReviewData((prev) => ({
                     ...prev,
                     title: e.target.value,
-                  }
-                ))}
+                  }))
+                }
               />
             </Grid>
             <Grid item xs={12}>
@@ -124,12 +126,12 @@ export default function EditReview() {
                 fullWidth
                 label="URL"
                 value={reviewData.url}
-                onChange={e => setReviewData(prev => (
-                  {
+                onChange={(e) =>
+                  setReviewData((prev) => ({
                     ...prev,
                     url: e.target.value,
-                  }
-                ))}
+                  }))
+                }
               />
             </Grid>
             <Grid item xs={12}>
@@ -141,12 +143,12 @@ export default function EditReview() {
                 value={reviewData.detail}
                 multiline
                 rows={2}
-                onChange={e => setReviewData(prev => (
-                  {
+                onChange={(e) =>
+                  setReviewData((prev) => ({
                     ...prev,
                     detail: e.target.value,
-                  }
-                ))}
+                  }))
+                }
               />
             </Grid>
             <Grid item xs={12}>
@@ -158,12 +160,12 @@ export default function EditReview() {
                 value={reviewData.review}
                 multiline
                 rows={6}
-                onChange={e => setReviewData(prev => (
-                  {
+                onChange={(e) =>
+                  setReviewData((prev) => ({
                     ...prev,
                     review: e.target.value,
-                  }
-                ))}
+                  }))
+                }
               />
             </Grid>
           </Grid>
@@ -171,7 +173,7 @@ export default function EditReview() {
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ mt: 3, mb: 2, bgcolor: "primary.light" }}
+            sx={{ mt: 3, mb: 2, bgcolor: 'primary.light' }}
           >
             編集を完了する
           </Button>

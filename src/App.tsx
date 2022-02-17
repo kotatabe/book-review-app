@@ -1,13 +1,5 @@
-import * as React from 'react';
-import {
-  useEffect,
-  useContext,
-  useState,
-} from 'react';
-import {
-  Navigate,
-  Link as RouterLink,
-} from 'react-router-dom';
+import { useEffect, useContext, useState } from 'react';
+import { Navigate, Link as RouterLink } from 'react-router-dom';
 import './assets/App.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -22,12 +14,13 @@ import { BookListContext } from './Context/BookListContext';
 import { useReviewList } from './Hook/useReview';
 import NewReviewButton from './Pages/NewReviewButton';
 import SimpleAlert from './Alert';
+import { Book } from './Pages/interface';
 
 export default function App() {
   const { bookList } = useContext(BookListContext);
   const { authToken, isAuthenticated } = useContext(AuthContext);
   const { getReviewList } = useReviewList();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getReviewList(setIsLoading);
@@ -39,9 +32,6 @@ export default function App() {
     !isAuthenticated ? (
       <Navigate to="/login" replace />
     ) : (
-      // isLoading ? (
-      //   <Skeleton width="100%" height={100} />
-      // ) : (
       <>
         <SimpleAlert />
         <NewReviewButton />
@@ -49,48 +39,45 @@ export default function App() {
           sx={{
             my: 2,
             border: 1,
-            bgcolor: "background.main",
-            borderColor: "border.main",
+            bgcolor: 'background.default',
+            borderColor: 'border.main',
             borderRadius: 1,
           }}
         >
-          <ul className='book-list-container'>
-            {bookList.map((book) =>
+          <ul className="book-list-container">
+            {bookList.map((book: Book) => (
               <Box
                 component="div"
                 key={book.id}
                 sx={{
                   p: 2,
-                  width: "100%",
+                  width: '100%',
                   height: 100,
                   bgcolor: 'inherit',
                   borderBottom: 1,
-                  borderColor: "border.main",
-                  display: "flex",
+                  borderColor: 'border.main',
+                  display: 'flex',
                 }}
               >
                 <Box
                   sx={{
-                    borderRadius: "50%",
+                    borderRadius: '50%',
                     width: 60,
                     height: 60,
-                    bgcolor: "secondary.main",
+                    bgcolor: 'secondary.main',
                   }}
                 >
                   <ListItemIcon
                     sx={{
-                      mx: "auto",
+                      mx: 'auto',
                       p: 1,
-                      width: "100%",
-                      height: "100%",
-                      display: "flex",
-                      alignItems: "center",
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
                     }}
                   >
-                    <MenuBookIcon
-                      fontSize="large"
-                      sx={{ m: "auto", }}
-                    />
+                    <MenuBookIcon fontSize="large" sx={{ m: 'auto' }} />
                   </ListItemIcon>
                 </Box>
                 <Box
@@ -98,8 +85,8 @@ export default function App() {
                     width: 300,
                     ml: 2,
                     flexGrow: 1,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
                   }}
                 >
                   {isLoading ? (
@@ -114,8 +101,8 @@ export default function App() {
                         component={RouterLink}
                         to={`detail/${book.id}`}
                         sx={{
-                          whiteSpace: "nowrap",
-                          fontWeight: "bold",
+                          whiteSpace: 'nowrap',
+                          fontWeight: 'bold',
                         }}
                       >
                         {book.title}
@@ -131,20 +118,20 @@ export default function App() {
                   to={`detail/${book.id}`}
                   variant="outlined"
                   sx={{
-                    my: "auto",
-                    height: "70%",
-                    width: "auto",
+                    my: 'auto',
+                    height: '70%',
+                    width: 'auto',
                   }}
                 >
                   レビューを読む
                 </Button>
               </Box>
-            )}
+            ))}
           </ul>
-        </Box >
-        <RouterLink to="/">Home</RouterLink> | {" "}
-        < RouterLink to="signup" > Sign up</RouterLink > | {" "}
-        < RouterLink to="/login" > login</RouterLink >
+        </Box>
+        <RouterLink to="/">Home</RouterLink> |{' '}
+        <RouterLink to="signup"> Sign up</RouterLink> |{' '}
+        <RouterLink to="/login"> login</RouterLink>
       </>
       // )
     )

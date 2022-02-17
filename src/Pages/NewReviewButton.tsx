@@ -38,7 +38,7 @@ export default function NewReviewButton() {
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 	const { postNewReview } = useNewReview();
-	const { getReviewList } = useReviewList();
+	// const { getReviewList } = useReviewList();
 	const [reviewData, setReviewData] = useState({
 		title: '',
 		url: '',
@@ -46,7 +46,7 @@ export default function NewReviewButton() {
 		review: '',
 	});
 
-	const hundelSubmit = (event) => {
+	const hundelSubmit = (event: React.FormEvent<HTMLInputElement>) => {
 		event.preventDefault();
 		postNewReview({
 			title: reviewData.title,
@@ -54,7 +54,7 @@ export default function NewReviewButton() {
 			detail: reviewData.detail,
 			review: reviewData.review,
 		});
-		getReviewList();
+		// getReviewList();
 		handleClose();
 	}
 
