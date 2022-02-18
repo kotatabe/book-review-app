@@ -59,7 +59,6 @@ export default function SignIn() {
           open: true,
           message: 'ログインが完了しました',
         });
-        console.log(isAuthenticated);
       })
       .catch((error) => {
         console.log('...Error', error);
@@ -69,12 +68,8 @@ export default function SignIn() {
           open: true,
           message: 'ログインに失敗しました',
         });
-      })
-      .finally(() => {
-        // setIsAuthenticated(false);
       });
     console.log('handleSubmit!');
-    console.log(isAuthenticated);
   };
 
   return isAuthenticated ? (
